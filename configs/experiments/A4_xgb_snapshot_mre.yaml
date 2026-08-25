@@ -1,0 +1,8 @@
+# Experiment A4: Snapshot XGBoost with max_risk_estimate
+experiment_id: A4
+name: xgb_snapshot_mre
+model_family: xgboost
+feature_set: snapshot
+include_mre: true
+horizons: [2.0]
+description: "XGBoost on latest qualifying CDM features including max_risk_estimate."

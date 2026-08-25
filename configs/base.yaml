@@ -1,0 +1,45 @@
+# ORVEXA Base Configuration
+# Reference: ORVEXA_TECHNICAL_DESIGN.md Section 3
+
+project:
+  name: ORVEXA
+  seed: 42
+  timezone: UTC
+
+paths:
+  raw_esa: data/raw/esa/train_data.csv
+  processed: data/processed
+  artifacts: artifacts
+  reports: reports
+
+horizons_days: [2.0, 3.0, 5.0, 7.0]
+
+data:
+  required_columns: [event_id, time_to_tca, risk]
+  event_key: event_id
+  cutoff_column: time_to_tca
+  target_column: risk
+  max_sequence_length: 23
+
+split:
+  train_fraction: 0.70
+  validation_fraction: 0.15
+  test_fraction: 0.15
+  ordering: first_valid_event_timestamp_else_first_appearance
+
+classification:
+  thresholds_log10: [-6.0, -5.0, -4.0]
+  positive_rule: "risk >= threshold_log10"
+
+metrics:
+  alert_budgets: [0.01, 0.05, 0.10]
+  bootstrap_iterations: 2000
+  confidence_level: 0.95
+  bootstrap_seed: 42
+
+training:
+  max_epochs: 100
+  early_stopping_patience: 12
+  batch_size: 64
+  learning_rate: 0.001
+  weight_decay: 0.0001

@@ -1,0 +1,7 @@
+# Experiment A1: Physics max_risk_estimate Baseline
+experiment_id: A1
+name: physics_baseline
+model_family: physics
+include_mre: true
+horizons: [2.0, 3.0, 5.0, 7.0]
+description: "Direct evaluation of ESA max_risk_estimate ranking without machine learning."

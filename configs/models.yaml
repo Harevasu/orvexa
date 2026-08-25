@@ -1,0 +1,43 @@
+# ORVEXA Models Configuration
+# Frozen v1 defaults for all model families
+# Reference: rules.md Section 8 and ORVEXA_TECHNICAL_DESIGN.md
+
+physics:
+  source_column: max_risk_estimate
+  direction: higher_is_higher_risk
+
+linear:
+  ridge:
+    alpha: 1.0
+    random_state: 42
+  logistic:
+    C: 1.0
+    random_state: 42
+    max_iter: 1000
+
+xgboost:
+  n_estimators: 300
+  max_depth: 6
+  learning_rate: 0.05
+  subsample: 0.8
+  colsample_bytree: 0.8
+  random_state: 42
+  tree_method: hist
+
+tcn:
+  channels: [64, 64, 128]
+  kernel_size: 3
+  dilations: [1, 2, 4]
+  causal: true
+  dropout: 0.15
+  optimizer: AdamW
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  batch_size: 64
+  max_epochs: 100
+  early_stopping_patience: 12
+  seed: 42
+  loss: Huber
+  huber_delta: 1.0
+  max_sequence_length: 23
+  readout: masked_mean_pooling

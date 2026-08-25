@@ -1,0 +1,12 @@
+# Experiment A13: Input Robustness and Degraded Data Stress Test
+experiment_id: A13
+name: robustness_stress_test
+perturbations:
+  missing_feature_masking:
+    fractions: [0.1, 0.25, 0.5]
+  gaussian_noise:
+    scales: [0.05, 0.15]
+  sequence_truncation:
+    keep_last_n: [1, 2, 3]
+seed: 42
+description: "Stress testing model rankings and predictions under corrupted, noisy, or truncated input data."

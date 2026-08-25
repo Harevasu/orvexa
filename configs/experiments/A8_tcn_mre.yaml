@@ -1,0 +1,7 @@
+# Experiment A8: Masked Causal TCN with max_risk_estimate
+experiment_id: A8
+name: tcn_mre
+model_family: tcn
+include_mre: true
+horizons: [2.0]
+description: "Masked causal Temporal Convolutional Network trained on raw CDM sequences including max_risk_estimate."

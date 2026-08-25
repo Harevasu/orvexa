@@ -1,0 +1,70 @@
+# ORVEXA Feature Configuration
+# Defines feature groups, exclusions, and preprocessing transformations
+# Reference: rules.md Section 6 and ORVEXA_VIBE_CODING_SPEC.md
+
+exclusions:
+  - event_id
+  - risk
+  - id
+  - mission_id
+
+controlled_physics:
+  - max_risk_estimate
+  - max_risk_scaling
+
+groups:
+  encounter_geometry:
+    - miss_distance
+    - relative_speed
+    - relative_position_r
+    - relative_position_t
+    - relative_position_n
+    - relative_velocity_r
+    - relative_velocity_t
+    - relative_velocity_n
+    - mahalanobis_distance
+  encounter_location:
+    - geocentric_latitude
+    - azimuth
+    - elevation
+  orbital_state:
+    - t_sma
+    - t_eccentricity
+    - t_inclination
+    - t_perigee
+    - t_apogee
+    - c_sma
+    - c_eccentricity
+    - c_inclination
+    - c_perigee
+    - c_apogee
+  uncertainty_covariance:
+    - t_sigma_r
+    - t_sigma_t
+    - t_sigma_n
+    - c_sigma_r
+    - c_sigma_t
+    - c_sigma_n
+    - covariance_determinant
+  observation_quality:
+    - t_obs_available
+    - t_obs_used
+    - t_residuals_accepted
+    - t_weighted_rms
+    - c_obs_available
+    - c_obs_used
+    - c_residuals_accepted
+    - c_weighted_rms
+  context:
+    - time_to_tca
+    - f10
+    - f3m
+    - ap
+    - ssn
+
+preprocessing:
+  numeric_imputation: median
+  numeric_missing_indicator: true
+  categorical_imputation: most_frequent
+  categorical_encoding: one_hot
+  scaling: standard

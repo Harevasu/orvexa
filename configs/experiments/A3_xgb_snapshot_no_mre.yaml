@@ -1,0 +1,8 @@
+# Experiment A3: Snapshot XGBoost without max_risk_estimate
+experiment_id: A3
+name: xgb_snapshot_no_mre
+model_family: xgboost
+feature_set: snapshot
+include_mre: false
+horizons: [2.0]
+description: "XGBoost on latest qualifying CDM features excluding max_risk_estimate."

@@ -1,0 +1,10 @@
+# Experiment A10: Probability Calibration
+experiment_id: A10
+name: calibration_study
+methods:
+  - platt
+  - isotonic
+split_source: validation
+eval_split: test
+thresholds_log10: [-6.0, -5.0, -4.0]
+description: "Platt and isotonic probability calibration fitted on validation split and evaluated on test split."

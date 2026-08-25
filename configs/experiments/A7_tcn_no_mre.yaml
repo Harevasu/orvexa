@@ -1,0 +1,7 @@
+# Experiment A7: Masked Causal TCN without max_risk_estimate
+experiment_id: A7
+name: tcn_no_mre
+model_family: tcn
+include_mre: false
+horizons: [2.0]
+description: "Masked causal Temporal Convolutional Network trained directly on raw CDM sequences excluding max_risk_estimate."

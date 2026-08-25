@@ -1,0 +1,12 @@
+# Experiment A14: Model Explainability and Attribution
+experiment_id: A14
+name: model_explanations
+methods:
+  tree_models:
+    explainer: shap_tree_explainer
+    outputs: [global_summary, local_waterfall, feature_group_importance]
+  tcn:
+    explainer: temporal_occlusion
+    window_sizes: [1, 2]
+disclaimer: "Attributions indicate model behavior, not physical causality."
+description: "Global and local feature attributions and temporal importance for tree and TCN models."

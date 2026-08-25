@@ -1,0 +1,10 @@
+# Experiment A2: Regularized Linear and Logistic Baselines
+experiment_id: A2
+name: linear_baseline
+model_family: linear
+include_mre: true
+horizons: [2.0]
+models:
+  regression: ridge
+  classification: logistic
+description: "Ridge regression and Logistic regression baselines on latest snapshot features."

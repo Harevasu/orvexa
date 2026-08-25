@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use ORVEXA in research or software, please cite it using the following metadata."
+title: "ORVEXA: An Explainable and Calibrated Temporal AI Framework for Multi-Horizon Spacecraft Conjunction-Risk Prioritization"
+version: 0.1.0
+date-released: 2026-08-26
+authors:
+  - name: "ORVEXA Project Team"
+repository-code: "https://github.com/orvexa/orvexa"
+license: "MIT"
+keywords:
+  - "spacecraft conjunction"
+  - "space situational awareness"
+  - "collision avoidance"
+  - "temporal convolutional networks"
+  - "machine learning"

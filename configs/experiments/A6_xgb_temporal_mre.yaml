@@ -1,0 +1,8 @@
+# Experiment A6: Temporal-Summary XGBoost with max_risk_estimate
+experiment_id: A6
+name: xgb_temporal_mre
+model_family: xgboost
+feature_set: temporal_summary
+include_mre: true
+horizons: [2.0]
+description: "XGBoost on engineered temporal summaries (deltas, slopes, aggregates) including max_risk_estimate."

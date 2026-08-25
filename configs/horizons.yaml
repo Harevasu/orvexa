@@ -1,0 +1,13 @@
+# ORVEXA Warning Horizons Configuration
+# Cutoff horizons in days before Time of Closest Approach (TCA)
+# Rows with time_to_tca >= horizon_days are retained for feature extraction
+
+horizons:
+  primary: 2.0
+  evaluation_horizons:
+    - 2.0
+    - 3.0
+    - 5.0
+    - 7.0
+
+minimum_coverage_threshold: 0.05

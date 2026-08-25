@@ -1,0 +1,9 @@
+# Experiment A11: Partition Strategy Comparison
+experiment_id: A11
+name: split_comparison
+split_strategies:
+  - chronological_event_split
+  - random_event_split
+horizons: [2.0]
+models_to_compare: [A4, A6, A8]
+description: "Comparison of temporal generalisation under chronological event split vs random event split."

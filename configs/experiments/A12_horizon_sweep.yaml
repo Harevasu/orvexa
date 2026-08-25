@@ -1,0 +1,13 @@
+# Experiment A12: Multi-Horizon Performance Sweep
+experiment_id: A12
+name: horizon_sweep
+horizons: [2.0, 3.0, 5.0, 7.0]
+models_to_evaluate: [A1, A4, A6, A8]
+metrics:
+  - recall_at_1pct
+  - recall_at_5pct
+  - recall_at_10pct
+  - mae
+  - pr_auc
+  - usable_coverage
+description: "Evaluation of warning capability degradation across 2, 3, 5, and 7-day warning horizons."
