@@ -1,0 +1,1694 @@
+{
+  "dataset_identity": {
+    "file_path": "data/raw/esa/train_data.csv",
+    "sha256_before": "ba47ce80580d5d6ff523ddc1d724901dbdfb3a5afdc5e755f0ca2bcefe6e4eb6",
+    "sha256_after": "ba47ce80580d5d6ff523ddc1d724901dbdfb3a5afdc5e755f0ca2bcefe6e4eb6",
+    "checksum_verified": true,
+    "file_size_bytes": 233600296,
+    "file_size_mb": 222.78
+  },
+  "file_statistics": {
+    "total_rows": 162634,
+    "total_columns": 103,
+    "exact_duplicate_rows": 0,
+    "exact_duplicate_percentage": 0.0
+  },
+  "event_statistics": {
+    "total_events": 13154,
+    "events_with_valid_final_risk": 13154,
+    "events_without_valid_final_risk": 0,
+    "valid_final_risk_percentage": 100.0,
+    "single_cdm_events": 225,
+    "multi_cdm_events": 12929,
+    "time_order_classification": {
+      "strictly_decreasing_events": 13154,
+      "non_increasing_with_ties_events": 0,
+      "strictly_increasing_events": 0,
+      "non_monotonic_events": 0
+    },
+    "cdm_sequence_length_statistics": {
+      "min": 1,
+      "max": 23,
+      "mean": 12.3638,
+      "median": 13.0,
+      "percentiles": {
+        "p1": 1.0,
+        "p5": 2.0,
+        "p10": 2.0,
+        "p25": 5.0,
+        "p50": 13.0,
+        "p75": 20.0,
+        "p90": 21.0,
+        "p95": 21.0,
+        "p99": 22.0
+      }
+    },
+    "horizon_eligibility": {
+      "H_2d": {
+        "horizon_days": 2,
+        "eligible_events": 11942,
+        "eligible_percentage": 90.79,
+        "median_eligible_cdms": 10.0,
+        "max_eligible_cdms": 17,
+        "mean_eligible_cdms": 9.37
+      },
+      "H_3d": {
+        "horizon_days": 3,
+        "eligible_events": 11273,
+        "eligible_percentage": 85.7,
+        "median_eligible_cdms": 9.0,
+        "max_eligible_cdms": 14,
+        "mean_eligible_cdms": 7.83
+      },
+      "H_5d": {
+        "horizon_days": 5,
+        "eligible_events": 9484,
+        "eligible_percentage": 72.1,
+        "median_eligible_cdms": 5.0,
+        "max_eligible_cdms": 8,
+        "mean_eligible_cdms": 4.48
+      },
+      "H_7d": {
+        "horizon_days": 7,
+        "eligible_events": 0,
+        "eligible_percentage": 0.0,
+        "median_eligible_cdms": 0,
+        "max_eligible_cdms": 0,
+        "mean_eligible_cdms": 0
+      }
+    }
+  },
+  "target_statistics": {
+    "target_column": "risk",
+    "data_type": "float64",
+    "all_rows_risk": {
+      "total_count": 162634,
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -30.0,
+      "max": -1.4428538576816372,
+      "mean": -19.340603,
+      "median": -17.870632404277014,
+      "percentiles": {
+        "p1": -30.0,
+        "p5": -30.0,
+        "p10": -30.0,
+        "p25": -30.0,
+        "p50": -17.870632404277014,
+        "p75": -9.173293661904289,
+        "p90": -6.576148182035407,
+        "p95": -5.733063088840827,
+        "p99": -4.480783878258306
+      }
+    },
+    "final_cdm_risk": {
+      "total_events": 13154,
+      "valid_count": 13154,
+      "missing_count": 0,
+      "min": -30.0,
+      "max": -1.6846595233727115,
+      "mean": -23.296024,
+      "median": -30.0,
+      "percentiles": {
+        "p1": -30.0,
+        "p5": -30.0,
+        "p10": -30.0,
+        "p25": -30.0,
+        "p50": -30.0,
+        "p75": -13.937141268619461,
+        "p90": -7.474243669195955,
+        "p95": -6.545834809007574,
+        "p99": -5.307767867952854
+      }
+    }
+  },
+  "feature_mappings": [
+    {
+      "config": "event_id",
+      "raw": "event_id",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; used as grouping key, excluded from features."
+    },
+    {
+      "config": "mission_id",
+      "raw": "mission_id",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; excluded from features to prevent mission identity leakage."
+    },
+    {
+      "config": "risk",
+      "raw": "risk",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; used as target only, excluded from features."
+    },
+    {
+      "config": "time_to_tca",
+      "raw": "time_to_tca",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; primary warning time field."
+    },
+    {
+      "config": "c_object_type",
+      "raw": "c_object_type",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; categorical chaser object class."
+    },
+    {
+      "config": "max_risk_estimate",
+      "raw": "max_risk_estimate",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; ESA physics baseline feature."
+    },
+    {
+      "config": "max_risk_scaling",
+      "raw": "max_risk_scaling",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; ESA physics baseline scaling factor."
+    },
+    {
+      "config": "miss_distance",
+      "raw": "miss_distance",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; total miss distance at TCA."
+    },
+    {
+      "config": "relative_speed",
+      "raw": "relative_speed",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; encounter relative speed at TCA."
+    },
+    {
+      "config": "relative_position_r",
+      "raw": "relative_position_r",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; RTN radial relative position."
+    },
+    {
+      "config": "relative_position_t",
+      "raw": "relative_position_t",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; RTN along-track relative position."
+    },
+    {
+      "config": "relative_position_n",
+      "raw": "relative_position_n",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; RTN normal relative position."
+    },
+    {
+      "config": "relative_velocity_r",
+      "raw": "relative_velocity_r",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; RTN radial relative velocity."
+    },
+    {
+      "config": "relative_velocity_t",
+      "raw": "relative_velocity_t",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; RTN along-track relative velocity."
+    },
+    {
+      "config": "relative_velocity_n",
+      "raw": "relative_velocity_n",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; RTN normal relative velocity."
+    },
+    {
+      "config": "mahalanobis_distance",
+      "raw": "mahalanobis_distance",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; covariance-normalized miss distance."
+    },
+    {
+      "config": "geocentric_latitude",
+      "raw": "geocentric_latitude",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; geocentric latitude at TCA."
+    },
+    {
+      "config": "azimuth",
+      "raw": "azimuth",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; encounter azimuth angle."
+    },
+    {
+      "config": "elevation",
+      "raw": "elevation",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; encounter elevation angle."
+    },
+    {
+      "config": "t_a",
+      "raw": "t_j2k_sma",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Candidate raw column t_j2k_sma is semi-major axis in J2000 frame (km). Requires human sign-off before aliasing."
+    },
+    {
+      "config": "t_sma",
+      "raw": "t_j2k_sma",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Candidate raw column t_j2k_sma in J2000 frame. Requires human sign-off."
+    },
+    {
+      "config": "t_e",
+      "raw": "t_j2k_ecc",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Candidate raw column t_j2k_ecc is eccentricity in J2000 frame. Requires human sign-off."
+    },
+    {
+      "config": "t_eccentricity",
+      "raw": "t_j2k_ecc",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Candidate raw column t_j2k_ecc is eccentricity. Requires human sign-off."
+    },
+    {
+      "config": "t_i",
+      "raw": "t_j2k_inc",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Candidate raw column t_j2k_inc is inclination in J2000 frame (deg). Requires human sign-off."
+    },
+    {
+      "config": "t_inclination",
+      "raw": "t_j2k_inc",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Candidate raw column t_j2k_inc is inclination. Requires human sign-off."
+    },
+    {
+      "config": "t_perigee",
+      "raw": "t_h_per",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Raw column t_h_per is perigee altitude (km), not perigee radius from center of Earth. Requires human domain confirmation."
+    },
+    {
+      "config": "t_apogee",
+      "raw": "t_h_apo",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Raw column t_h_apo is apogee altitude (km), not apogee radius. Requires human domain confirmation."
+    },
+    {
+      "config": "t_argp",
+      "raw": null,
+      "status": "NOT_AVAILABLE",
+      "reason": "Argument of perigee is not provided in raw ESA CSV."
+    },
+    {
+      "config": "t_raan",
+      "raw": null,
+      "status": "NOT_AVAILABLE",
+      "reason": "Right Ascension of Ascending Node is not provided in raw ESA CSV."
+    },
+    {
+      "config": "t_mean_anomaly",
+      "raw": null,
+      "status": "NOT_AVAILABLE",
+      "reason": "Mean anomaly is not provided in raw ESA CSV."
+    },
+    {
+      "config": "c_a",
+      "raw": "c_j2k_sma",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Candidate raw column c_j2k_sma is J2000 semi-major axis (km). Requires human sign-off."
+    },
+    {
+      "config": "c_sma",
+      "raw": "c_j2k_sma",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Candidate raw column c_j2k_sma in J2000 frame. Requires human sign-off."
+    },
+    {
+      "config": "c_e",
+      "raw": "c_j2k_ecc",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Candidate raw column c_j2k_ecc is eccentricity. Requires human sign-off."
+    },
+    {
+      "config": "c_eccentricity",
+      "raw": "c_j2k_ecc",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Candidate raw column c_j2k_ecc is eccentricity. Requires human sign-off."
+    },
+    {
+      "config": "c_i",
+      "raw": "c_j2k_inc",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Candidate raw column c_j2k_inc is J2000 inclination (deg). Requires human sign-off."
+    },
+    {
+      "config": "c_inclination",
+      "raw": "c_j2k_inc",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Candidate raw column c_j2k_inc is inclination. Requires human sign-off."
+    },
+    {
+      "config": "c_perigee",
+      "raw": "c_h_per",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Raw column c_h_per is chaser perigee altitude (km). Requires human confirmation."
+    },
+    {
+      "config": "c_apogee",
+      "raw": "c_h_apo",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Raw column c_h_apo is chaser apogee altitude (km). Requires human confirmation."
+    },
+    {
+      "config": "c_argp",
+      "raw": null,
+      "status": "NOT_AVAILABLE",
+      "reason": "Argument of perigee for chaser is not provided in raw ESA CSV."
+    },
+    {
+      "config": "c_raan",
+      "raw": null,
+      "status": "NOT_AVAILABLE",
+      "reason": "RAAN for chaser is not provided in raw ESA CSV."
+    },
+    {
+      "config": "c_mean_anomaly",
+      "raw": null,
+      "status": "NOT_AVAILABLE",
+      "reason": "Mean anomaly for chaser is not provided in raw ESA CSV."
+    },
+    {
+      "config": "t_sigma_r",
+      "raw": "t_sigma_r",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; target radial standard deviation."
+    },
+    {
+      "config": "t_sigma_t",
+      "raw": "t_sigma_t",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; target along-track standard deviation."
+    },
+    {
+      "config": "t_sigma_n",
+      "raw": "t_sigma_n",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; target cross-track normal standard deviation."
+    },
+    {
+      "config": "c_sigma_r",
+      "raw": "c_sigma_r",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; chaser radial standard deviation."
+    },
+    {
+      "config": "c_sigma_t",
+      "raw": "c_sigma_t",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; chaser along-track standard deviation."
+    },
+    {
+      "config": "c_sigma_n",
+      "raw": "c_sigma_n",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; chaser cross-track normal standard deviation."
+    },
+    {
+      "config": "miss_distance_sigma",
+      "raw": null,
+      "status": "NOT_AVAILABLE",
+      "reason": "Direct miss distance sigma is not a raw column (may be derivable or absent)."
+    },
+    {
+      "config": "covariance_determinant",
+      "raw": "t_position_covariance_det, c_position_covariance_det",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Raw data provides separate target and chaser 3x3 position covariance determinants. Requires explicit selection rule."
+    },
+    {
+      "config": "covariance_correlation",
+      "raw": null,
+      "status": "NOT_AVAILABLE",
+      "reason": "Full scalar covariance correlation not in raw CSV (raw has individual cross-terms t_ct_r, etc.)."
+    },
+    {
+      "config": "t_obs_available",
+      "raw": "t_obs_available",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; target available observations."
+    },
+    {
+      "config": "t_obs_used",
+      "raw": "t_obs_used",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; target used observations."
+    },
+    {
+      "config": "c_obs_available",
+      "raw": "c_obs_available",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; chaser available observations."
+    },
+    {
+      "config": "c_obs_used",
+      "raw": "c_obs_used",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; chaser used observations."
+    },
+    {
+      "config": "t_residuals_accepted",
+      "raw": "t_residuals_accepted",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; percentage of accepted residuals for target."
+    },
+    {
+      "config": "c_residuals_accepted",
+      "raw": "c_residuals_accepted",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; percentage of accepted residuals for chaser."
+    },
+    {
+      "config": "t_weighted_rms",
+      "raw": "t_weighted_rms",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; weighted RMS for target orbit determination."
+    },
+    {
+      "config": "c_weighted_rms",
+      "raw": "c_weighted_rms",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; weighted RMS for chaser orbit determination."
+    },
+    {
+      "config": "t_od_span",
+      "raw": "t_actual_od_span",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Raw dataset contains t_actual_od_span and t_recommended_od_span. Requires human selection."
+    },
+    {
+      "config": "c_od_span",
+      "raw": "c_actual_od_span",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Raw dataset contains c_actual_od_span and c_recommended_od_span. Requires human selection."
+    },
+    {
+      "config": "t_rms",
+      "raw": "t_weighted_rms",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Raw dataset contains t_weighted_rms. Requires human confirmation."
+    },
+    {
+      "config": "c_rms",
+      "raw": "c_weighted_rms",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Raw dataset contains c_weighted_rms. Requires human confirmation."
+    },
+    {
+      "config": "t_residual",
+      "raw": "t_residuals_accepted",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Raw dataset contains t_residuals_accepted (percentage). Requires human confirmation."
+    },
+    {
+      "config": "c_residual",
+      "raw": "c_residuals_accepted",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "reason": "Raw dataset contains c_residuals_accepted (percentage). Requires human confirmation."
+    },
+    {
+      "config": "F10",
+      "raw": "F10",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; 10.7cm solar radio flux."
+    },
+    {
+      "config": "f10",
+      "raw": "F10",
+      "status": "DIRECT",
+      "reason": "Exact case-insensitive match (raw: F10)."
+    },
+    {
+      "config": "F3M",
+      "raw": "F3M",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; 81-day centered solar radio flux average."
+    },
+    {
+      "config": "f3m",
+      "raw": "F3M",
+      "status": "DIRECT",
+      "reason": "Exact case-insensitive match (raw: F3M)."
+    },
+    {
+      "config": "AP",
+      "raw": "AP",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; planetary geomagnetic index."
+    },
+    {
+      "config": "ap",
+      "raw": "AP",
+      "status": "DIRECT",
+      "reason": "Exact case-insensitive match (raw: AP)."
+    },
+    {
+      "config": "SSN",
+      "raw": "SSN",
+      "status": "DIRECT",
+      "reason": "Exact match in raw CSV; sunspot number."
+    },
+    {
+      "config": "ssn",
+      "raw": "SSN",
+      "status": "DIRECT",
+      "reason": "Exact case-insensitive match (raw: SSN)."
+    }
+  ],
+  "columns": {
+    "event_id": {
+      "inferred_type": "int64",
+      "type_counts": {
+        "int": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 0.0,
+      "max": 13153.0,
+      "mean": 6566.871798
+    },
+    "time_to_tca": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -0.14980810185185187,
+      "max": 6.993832407407408,
+      "mean": 3.35019
+    },
+    "mission_id": {
+      "inferred_type": "int64",
+      "type_counts": {
+        "int": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 1.0,
+      "max": 24.0,
+      "mean": 7.117786
+    },
+    "risk": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -30.0,
+      "max": -1.4428538576816372,
+      "mean": -19.340603
+    },
+    "max_risk_estimate": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -9.814174640387037,
+      "max": -1.082441979174564,
+      "mean": -6.282332
+    },
+    "max_risk_scaling": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 1.0707901049065958e-13,
+      "max": 49829764.16318423,
+      "mean": 53740.253808
+    },
+    "miss_distance": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 9.0,
+      "max": 67373.0,
+      "mean": 16531.662088
+    },
+    "relative_speed": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 4.0,
+      "max": 17138.0,
+      "mean": 10655.819638
+    },
+    "relative_position_r": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -4815.0,
+      "max": 5284.1,
+      "mean": -40.198451
+    },
+    "relative_position_t": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -62184.2,
+      "max": 62184.3,
+      "mean": 53.578336
+    },
+    "relative_position_n": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -50995.5,
+      "max": 50996.8,
+      "mean": 95.253443
+    },
+    "relative_velocity_r": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -2295.3,
+      "max": 2284.8,
+      "mean": 0.028265
+    },
+    "relative_velocity_t": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -16924.0,
+      "max": 331.2,
+      "mean": -8761.327045
+    },
+    "relative_velocity_n": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -10056.6,
+      "max": 10011.3,
+      "mean": -54.00908
+    },
+    "t_time_lastob_start": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 1.0,
+      "max": 180.00000000000003,
+      "mean": 1.028149
+    },
+    "t_time_lastob_end": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 0.0,
+      "max": 2.0,
+      "mean": 0.000941
+    },
+    "t_recommended_od_span": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 1.31,
+      "max": 14.42,
+      "mean": 4.032207
+    },
+    "t_actual_od_span": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 0.01,
+      "max": 8.66,
+      "mean": 3.799743
+    },
+    "t_obs_available": {
+      "inferred_type": "int64",
+      "type_counts": {
+        "int": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 29.0,
+      "max": 4467.0,
+      "mean": 952.684396
+    },
+    "t_obs_used": {
+      "inferred_type": "int64",
+      "type_counts": {
+        "int": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 6.0,
+      "max": 4464.0,
+      "mean": 907.66922
+    },
+    "t_residuals_accepted": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 6.8,
+      "max": 100.0,
+      "mean": 98.907999
+    },
+    "t_weighted_rms": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 0.525,
+      "max": 2.93,
+      "mean": 1.123267
+    },
+    "t_rcs_estimate": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 159357
+      },
+      "missing_count": 3277,
+      "missing_percentage": 2.015,
+      "min": 0.0111,
+      "max": 27.9614,
+      "mean": 2.960459
+    },
+    "t_cd_area_over_mass": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -0.09869232,
+      "max": 0.371908,
+      "mean": 0.013143
+    },
+    "t_cr_area_over_mass": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 0.0,
+      "max": 0.117526,
+      "mean": 0.011319
+    },
+    "t_sedr": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -0.00017134,
+      "max": 0.0120439,
+      "mean": 0.000121
+    },
+    "t_j2k_sma": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 6675.031573911329,
+      "max": 7211.095278273009,
+      "mean": 7039.420999
+    },
+    "t_j2k_ecc": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 3.034515123196941e-05,
+      "max": 0.0206197378527383,
+      "mean": 0.001904
+    },
+    "t_j2k_inc": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 87.23664128811541,
+      "max": 98.8483625704259,
+      "mean": 95.40863
+    },
+    "t_ct_r": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -0.9999286961643612,
+      "max": 0.9997752063490146,
+      "mean": -0.099422
+    },
+    "t_cn_r": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -0.9824259216334744,
+      "max": 0.9968752235504004,
+      "mean": 0.138713
+    },
+    "t_cn_t": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -0.9746078782025404,
+      "max": 0.986718974722365,
+      "mean": 0.001965
+    },
+    "t_crdot_r": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153404
+      },
+      "missing_count": 9230,
+      "missing_percentage": 5.6753,
+      "min": -0.9997701030748544,
+      "max": 0.9999294379015108,
+      "mean": 0.089312
+    },
+    "t_crdot_t": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153404
+      },
+      "missing_count": 9230,
+      "missing_percentage": 5.6753,
+      "min": -1.0000005597120405,
+      "max": 0.6030488911482114,
+      "mean": -0.973406
+    },
+    "t_crdot_n": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153404
+      },
+      "missing_count": 9230,
+      "missing_percentage": 5.6753,
+      "min": -0.9874510098331536,
+      "max": 0.9720857027226434,
+      "mean": 0.000226
+    },
+    "t_ctdot_r": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153404
+      },
+      "missing_count": 9230,
+      "missing_percentage": 5.6753,
+      "min": -1.0000002066866351,
+      "max": 0.9907316280817468,
+      "mean": -0.971794
+    },
+    "t_ctdot_t": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153404
+      },
+      "missing_count": 9230,
+      "missing_percentage": 5.6753,
+      "min": -0.9949527814326709,
+      "max": 0.9988516488410104,
+      "mean": 0.045442
+    },
+    "t_ctdot_n": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153404
+      },
+      "missing_count": 9230,
+      "missing_percentage": 5.6753,
+      "min": -0.9974562332182878,
+      "max": 0.983070097078675,
+      "mean": -0.143993
+    },
+    "t_ctdot_rdot": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153404
+      },
+      "missing_count": 9230,
+      "missing_percentage": 5.6753,
+      "min": -0.9992930178773468,
+      "max": 0.9946863149805868,
+      "mean": -0.049498
+    },
+    "t_cndot_r": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153404
+      },
+      "missing_count": 9230,
+      "missing_percentage": 5.6753,
+      "min": -0.9822493781640944,
+      "max": 0.9941349710456264,
+      "mean": 0.062686
+    },
+    "t_cndot_t": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153404
+      },
+      "missing_count": 9230,
+      "missing_percentage": 5.6753,
+      "min": -0.9668630223152492,
+      "max": 0.9719031247350324,
+      "mean": 0.001286
+    },
+    "t_cndot_n": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153404
+      },
+      "missing_count": 9230,
+      "missing_percentage": 5.6753,
+      "min": -0.997827499069,
+      "max": 0.9976200129169251,
+      "mean": 0.209073
+    },
+    "t_cndot_rdot": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153404
+      },
+      "missing_count": 9230,
+      "missing_percentage": 5.6753,
+      "min": -0.9636842860291736,
+      "max": 0.9668624359509516,
+      "mean": 2.9e-05
+    },
+    "t_cndot_tdot": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153404
+      },
+      "missing_count": 9230,
+      "missing_percentage": 5.6753,
+      "min": -0.9956543963244592,
+      "max": 0.9848902478140787,
+      "mean": -0.063875
+    },
+    "c_object_type": {
+      "inferred_type": "string",
+      "type_counts": {
+        "string": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": null,
+      "max": null,
+      "mean": null
+    },
+    "c_time_lastob_start": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162623
+      },
+      "missing_count": 11,
+      "missing_percentage": 0.0068,
+      "min": 1.0,
+      "max": 180.00000000000003,
+      "mean": 40.150834
+    },
+    "c_time_lastob_end": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162623
+      },
+      "missing_count": 11,
+      "missing_percentage": 0.0068,
+      "min": 0.0,
+      "max": 2.0,
+      "mean": 0.589664
+    },
+    "c_recommended_od_span": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162623
+      },
+      "missing_count": 11,
+      "missing_percentage": 0.0068,
+      "min": 0.0,
+      "max": 234.41,
+      "mean": 12.663576
+    },
+    "c_actual_od_span": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162623
+      },
+      "missing_count": 11,
+      "missing_percentage": 0.0068,
+      "min": 0.0,
+      "max": 154.04,
+      "mean": 12.026755
+    },
+    "c_obs_available": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162623
+      },
+      "missing_count": 11,
+      "missing_percentage": 0.0068,
+      "min": 3.0,
+      "max": 2227.0,
+      "mean": 65.933374
+    },
+    "c_obs_used": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162623
+      },
+      "missing_count": 11,
+      "missing_percentage": 0.0068,
+      "min": 3.0,
+      "max": 2227.0,
+      "mean": 59.158495
+    },
+    "c_residuals_accepted": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162623
+      },
+      "missing_count": 11,
+      "missing_percentage": 0.0068,
+      "min": 37.7,
+      "max": 100.0,
+      "mean": 98.784291
+    },
+    "c_weighted_rms": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162623
+      },
+      "missing_count": 11,
+      "missing_percentage": 0.0068,
+      "min": 0.35600000000000004,
+      "max": 237.25400000000002,
+      "mean": 1.978627
+    },
+    "c_rcs_estimate": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 109793
+      },
+      "missing_count": 52841,
+      "missing_percentage": 32.4907,
+      "min": 0.0001,
+      "max": 44.6054,
+      "mean": 0.461612
+    },
+    "c_cd_area_over_mass": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -128.17863801,
+      "max": 147.912748,
+      "mean": 0.784301
+    },
+    "c_cr_area_over_mass": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -0.712079,
+      "max": 59.154967000000006,
+      "mean": 0.346478
+    },
+    "c_sedr": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -0.107293,
+      "max": 0.876151,
+      "mean": 0.002985
+    },
+    "c_j2k_sma": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 6643.20548867723,
+      "max": 41661.1344043242,
+      "mean": 7200.009977
+    },
+    "c_j2k_ecc": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 4.5475757049676895e-05,
+      "max": 0.8340978857212651,
+      "mean": 0.016133
+    },
+    "c_j2k_inc": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 1.87807470876677,
+      "max": 144.675721024702,
+      "mean": 86.473026
+    },
+    "c_ct_r": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162623
+      },
+      "missing_count": 11,
+      "missing_percentage": 0.0068,
+      "min": -1.0000000472962218,
+      "max": 0.999999962222902,
+      "mean": -0.217449
+    },
+    "c_cn_r": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162623
+      },
+      "missing_count": 11,
+      "missing_percentage": 0.0068,
+      "min": -0.9999366040729994,
+      "max": 0.9984907153205872,
+      "mean": 0.109592
+    },
+    "c_cn_t": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162623
+      },
+      "missing_count": 11,
+      "missing_percentage": 0.0068,
+      "min": -0.9993204505719232,
+      "max": 0.9999377095131772,
+      "mean": 0.014433
+    },
+    "c_crdot_r": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153393
+      },
+      "missing_count": 9241,
+      "missing_percentage": 5.6821,
+      "min": -0.9999999745908481,
+      "max": 1.0000002930931216,
+      "mean": 0.207296
+    },
+    "c_crdot_t": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153393
+      },
+      "missing_count": 9241,
+      "missing_percentage": 5.6821,
+      "min": -1.0000006149531364,
+      "max": 0.3928681180797884,
+      "mean": -0.981466
+    },
+    "c_crdot_n": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153393
+      },
+      "missing_count": 9241,
+      "missing_percentage": 5.6821,
+      "min": -0.9999378018892532,
+      "max": 0.9993213571035788,
+      "mean": -0.008321
+    },
+    "c_ctdot_r": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153393
+      },
+      "missing_count": 9241,
+      "missing_percentage": 5.6821,
+      "min": -1.0000001279588095,
+      "max": 0.9999986297646292,
+      "mean": -0.85833
+    },
+    "c_ctdot_t": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153393
+      },
+      "missing_count": 9241,
+      "missing_percentage": 5.6821,
+      "min": -0.9999473408757484,
+      "max": 1.0000000939510556,
+      "mean": 0.1707
+    },
+    "c_ctdot_n": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153393
+      },
+      "missing_count": 9241,
+      "missing_percentage": 5.6821,
+      "min": -0.999653963266744,
+      "max": 0.9999028798316552,
+      "mean": -0.131089
+    },
+    "c_ctdot_rdot": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153393
+      },
+      "missing_count": 9241,
+      "missing_percentage": 5.6821,
+      "min": -0.9999999777339996,
+      "max": 0.9999473110983254,
+      "mean": -0.170459
+    },
+    "c_cndot_r": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153393
+      },
+      "missing_count": 9241,
+      "missing_percentage": 5.6821,
+      "min": -0.999986798035588,
+      "max": 0.9999169141314452,
+      "mean": 0.16663
+    },
+    "c_cndot_t": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153393
+      },
+      "missing_count": 9241,
+      "missing_percentage": 5.6821,
+      "min": -0.9999861420341258,
+      "max": 0.9999842922402604,
+      "mean": -0.00013
+    },
+    "c_cndot_n": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153393
+      },
+      "missing_count": 9241,
+      "missing_percentage": 5.6821,
+      "min": -0.9999563905883456,
+      "max": 0.9998918313771548,
+      "mean": 0.277172
+    },
+    "c_cndot_rdot": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153393
+      },
+      "missing_count": 9241,
+      "missing_percentage": 5.6821,
+      "min": -0.9999843214802886,
+      "max": 0.9999862697750824,
+      "mean": 0.002046
+    },
+    "c_cndot_tdot": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153393
+      },
+      "missing_count": 9241,
+      "missing_percentage": 5.6821,
+      "min": -0.9998429084552499,
+      "max": 0.9999686794012004,
+      "mean": -0.186402
+    },
+    "t_span": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 0.1,
+      "max": 27.71,
+      "mean": 8.945041
+    },
+    "c_span": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 2.0,
+      "max": 30.45,
+      "mean": 2.343352
+    },
+    "t_h_apo": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 299.1311623738329,
+      "max": 842.6913947510202,
+      "mean": 674.664672
+    },
+    "t_h_per": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 273.0727691850443,
+      "max": 825.3500734008157,
+      "mean": 647.903325
+    },
+    "c_h_apo": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 302.7936623057776,
+      "max": 70032.46048175571,
+      "mean": 1020.431444
+    },
+    "c_h_per": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 113.2471831423336,
+      "max": 834.6378046651828,
+      "mean": 623.31451
+    },
+    "geocentric_latitude": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -87.96955439041805,
+      "max": 87.81890957776041,
+      "mean": -0.664117
+    },
+    "azimuth": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -112.8819313894026,
+      "max": 130.15882372334124,
+      "mean": -0.000716
+    },
+    "elevation": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -66.39402191438664,
+      "max": 59.910533776007064,
+      "mean": -0.020129
+    },
+    "mahalanobis_distance": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 4.6613296278716614e-07,
+      "max": 15427.160794451873,
+      "mean": 192.602768
+    },
+    "t_position_covariance_det": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 10.402088120794977,
+      "max": 6.732289373602053e+46,
+      "mean": 1.0290880336862017e+45
+    },
+    "c_position_covariance_det": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": -8.175632684813821e+18,
+      "max": 6.732289373602053e+46,
+      "mean": 1.0978041986257949e+45
+    },
+    "t_sigma_r": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 0.6994956754691197,
+      "max": 63781363.00000001,
+      "mean": 974959.138894
+    },
+    "c_sigma_r": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162623
+      },
+      "missing_count": 11,
+      "missing_percentage": 0.0068,
+      "min": 0.9271647407507336,
+      "max": 63781363.00000001,
+      "mean": 1040560.02497
+    },
+    "t_sigma_t": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 2.5983914178681915,
+      "max": 63781363.00000001,
+      "mean": 975362.369511
+    },
+    "c_sigma_t": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162623
+      },
+      "missing_count": 11,
+      "missing_percentage": 0.0068,
+      "min": 4.976328968225473,
+      "max": 76548834.08648364,
+      "mean": 1071755.03807
+    },
+    "t_sigma_n": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162634
+      },
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "min": 0.7322259897053641,
+      "max": 63781363.00000001,
+      "mean": 974955.559462
+    },
+    "c_sigma_n": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 162623
+      },
+      "missing_count": 11,
+      "missing_percentage": 0.0068,
+      "min": 0.9162687136023464,
+      "max": 63781363.00000001,
+      "mean": 1040225.190718
+    },
+    "t_sigma_rdot": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153404
+      },
+      "missing_count": 9230,
+      "missing_percentage": 5.6753,
+      "min": 0.0025283870658946864,
+      "max": 79053.66149846077,
+      "mean": 1227.347518
+    },
+    "c_sigma_rdot": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153393
+      },
+      "missing_count": 9241,
+      "missing_percentage": 5.6821,
+      "min": 0.0052926412368650855,
+      "max": 80081.98299243095,
+      "mean": 1160.845886
+    },
+    "t_sigma_tdot": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153404
+      },
+      "missing_count": 9230,
+      "missing_percentage": 5.6753,
+      "min": 0.0007236349908621057,
+      "max": 79053.66149846077,
+      "mean": 1227.006677
+    },
+    "c_sigma_tdot": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153393
+      },
+      "missing_count": 9241,
+      "missing_percentage": 5.6821,
+      "min": 0.001005638420511975,
+      "max": 79053.66149846077,
+      "mean": 1127.804515
+    },
+    "t_sigma_ndot": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153404
+      },
+      "missing_count": 9230,
+      "missing_percentage": 5.6753,
+      "min": 0.0009461257316023066,
+      "max": 79053.66149846077,
+      "mean": 1227.004465
+    },
+    "c_sigma_ndot": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 153393
+      },
+      "missing_count": 9241,
+      "missing_percentage": 5.6821,
+      "min": 0.0014101904126748274,
+      "max": 79053.66149846077,
+      "mean": 1127.809273
+    },
+    "F10": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 155812
+      },
+      "missing_count": 6822,
+      "missing_percentage": 4.1947,
+      "min": 66.0,
+      "max": 246.0,
+      "mean": 78.095853
+    },
+    "F3M": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 155812
+      },
+      "missing_count": 6822,
+      "missing_percentage": 4.1947,
+      "min": 69.0,
+      "max": 159.0,
+      "mean": 79.049085
+    },
+    "SSN": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 155812
+      },
+      "missing_count": 6822,
+      "missing_percentage": 4.1947,
+      "min": 0.0,
+      "max": 172.0,
+      "mean": 20.58948
+    },
+    "AP": {
+      "inferred_type": "float64",
+      "type_counts": {
+        "float": 155812
+      },
+      "missing_count": 6822,
+      "missing_percentage": 4.1947,
+      "min": 0.0,
+      "max": 108.0,
+      "mean": 8.608034
+    }
+  }
+}

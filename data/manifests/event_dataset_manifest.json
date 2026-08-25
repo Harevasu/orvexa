@@ -1,0 +1,124 @@
+{
+  "manifest_version": "1.0",
+  "dataset_source": "data/raw/esa/train_data.csv",
+  "source_sha256": "ba47ce80580d5d6ff523ddc1d724901dbdfb3a5afdc5e755f0ca2bcefe6e4eb6",
+  "raw_rows_count": 162634,
+  "raw_events_count": 13154,
+  "horizons": [
+    2,
+    3,
+    5
+  ],
+  "target": {
+    "source_column": "risk",
+    "event_target_name": "final_risk",
+    "description": "Risk value from final CDM (minimum time_to_tca) of each event"
+  },
+  "grouping": {
+    "column": "event_id",
+    "ordering": "strictly decreasing time_to_tca"
+  },
+  "direct_features_used": [
+    "time_to_tca",
+    "c_object_type",
+    "max_risk_estimate",
+    "max_risk_scaling",
+    "miss_distance",
+    "relative_speed",
+    "relative_position_r",
+    "relative_position_t",
+    "relative_position_n",
+    "relative_velocity_r",
+    "relative_velocity_t",
+    "relative_velocity_n",
+    "mahalanobis_distance",
+    "geocentric_latitude",
+    "azimuth",
+    "elevation",
+    "t_sigma_r",
+    "t_sigma_t",
+    "t_sigma_n",
+    "c_sigma_r",
+    "c_sigma_t",
+    "c_sigma_n",
+    "t_obs_available",
+    "t_obs_used",
+    "c_obs_available",
+    "c_obs_used",
+    "t_residuals_accepted",
+    "c_residuals_accepted",
+    "t_weighted_rms",
+    "c_weighted_rms",
+    "F10",
+    "F3M",
+    "AP",
+    "SSN"
+  ],
+  "direct_features_count": 34,
+  "needs_human_review_features_excluded": [
+    "t_a",
+    "t_sma",
+    "t_e",
+    "t_eccentricity",
+    "t_i",
+    "t_inclination",
+    "t_perigee",
+    "t_apogee",
+    "c_a",
+    "c_sma",
+    "c_e",
+    "c_eccentricity",
+    "c_i",
+    "c_inclination",
+    "c_perigee",
+    "c_apogee",
+    "covariance_determinant",
+    "t_od_span",
+    "c_od_span",
+    "t_rms",
+    "c_rms",
+    "t_residual",
+    "c_residual"
+  ],
+  "needs_human_review_features_count": 23,
+  "not_available_features_excluded": [
+    "t_argp",
+    "t_raan",
+    "t_mean_anomaly",
+    "c_argp",
+    "c_raan",
+    "c_mean_anomaly",
+    "miss_distance_sigma",
+    "covariance_correlation"
+  ],
+  "not_available_features_count": 8,
+  "identifiers_excluded": [
+    "event_id",
+    "mission_id"
+  ],
+  "target_excluded_from_inputs": [
+    "risk"
+  ],
+  "output_files": {
+    "events_H2": "data/processed/events/events_H2.csv",
+    "sequences_H2": "data/processed/events/sequences_H2.csv",
+    "events_H3": "data/processed/events/events_H3.csv",
+    "sequences_H3": "data/processed/events/sequences_H3.csv",
+    "events_H5": "data/processed/events/events_H5.csv",
+    "sequences_H5": "data/processed/events/sequences_H5.csv"
+  },
+  "horizon_summary": {
+    "H2": {
+      "eligible_events": 11942,
+      "total_cdms": 111939
+    },
+    "H3": {
+      "eligible_events": 11273,
+      "total_cdms": 88237
+    },
+    "H5": {
+      "eligible_events": 9484,
+      "total_cdms": 42524
+    }
+  }
+}
