@@ -95,3 +95,10 @@ models/*
 
 # Local logs and temporary caches
 *.log
+
+
+# ORVEXA Reports
+reports/*
+
+# Reference Code Repository
+reference_repo/*
