@@ -1,0 +1,1783 @@
+{
+  "checksums_initial": {
+    "raw_train": {
+      "path": "data/raw/esa/train_data.csv",
+      "sha256": "ba47ce80580d5d6ff523ddc1d724901dbdfb3a5afdc5e755f0ca2bcefe6e4eb6",
+      "size_bytes": 233600296
+    },
+    "events_H2": {
+      "path": "data/processed/events/events_H2.csv",
+      "sha256": "3977a0b8adaaa6eeb29b107381f5ed19856e9e9adb44b1f511574fab547c8dd3",
+      "size_bytes": 5178475
+    },
+    "events_H3": {
+      "path": "data/processed/events/events_H3.csv",
+      "sha256": "6840e2c7ffdcdafaec46172b3051bce2063bb51c2a5b22a2064473902090f049",
+      "size_bytes": 4885784
+    },
+    "events_H5": {
+      "path": "data/processed/events/events_H5.csv",
+      "sha256": "89c427f05285606da42b2004a2e6175547cf78834e5f900e66d9f22cf859a51a",
+      "size_bytes": 4095942
+    },
+    "sequences_H2": {
+      "path": "data/processed/events/sequences_H2.csv",
+      "sha256": "4ccc7ddc779c53d99ad5d0775ed5e4d87d1b6470062dc0921fbbaeedd3bc8c0c",
+      "size_bytes": 43119186
+    },
+    "sequences_H3": {
+      "path": "data/processed/events/sequences_H3.csv",
+      "sha256": "7901ebbc5b073c31fffe0f967a96ea1ffdea41034771f6acccb2a3d089b9a097",
+      "size_bytes": 33973238
+    },
+    "sequences_H5": {
+      "path": "data/processed/events/sequences_H5.csv",
+      "sha256": "fb5ca14f20d7dfbe07ac74b5d5a772ebd4ed81dd3f234e87b31b4e1099442243",
+      "size_bytes": 16364247
+    }
+  },
+  "raw_stats": {
+    "total_rows": 162634,
+    "unique_events": 13154,
+    "raw_columns": [
+      "event_id",
+      "time_to_tca",
+      "mission_id",
+      "risk",
+      "max_risk_estimate",
+      "max_risk_scaling",
+      "miss_distance",
+      "relative_speed",
+      "relative_position_r",
+      "relative_position_t",
+      "relative_position_n",
+      "relative_velocity_r",
+      "relative_velocity_t",
+      "relative_velocity_n",
+      "t_time_lastob_start",
+      "t_time_lastob_end",
+      "t_recommended_od_span",
+      "t_actual_od_span",
+      "t_obs_available",
+      "t_obs_used",
+      "t_residuals_accepted",
+      "t_weighted_rms",
+      "t_rcs_estimate",
+      "t_cd_area_over_mass",
+      "t_cr_area_over_mass",
+      "t_sedr",
+      "t_j2k_sma",
+      "t_j2k_ecc",
+      "t_j2k_inc",
+      "t_ct_r",
+      "t_cn_r",
+      "t_cn_t",
+      "t_crdot_r",
+      "t_crdot_t",
+      "t_crdot_n",
+      "t_ctdot_r",
+      "t_ctdot_t",
+      "t_ctdot_n",
+      "t_ctdot_rdot",
+      "t_cndot_r",
+      "t_cndot_t",
+      "t_cndot_n",
+      "t_cndot_rdot",
+      "t_cndot_tdot",
+      "c_object_type",
+      "c_time_lastob_start",
+      "c_time_lastob_end",
+      "c_recommended_od_span",
+      "c_actual_od_span",
+      "c_obs_available",
+      "c_obs_used",
+      "c_residuals_accepted",
+      "c_weighted_rms",
+      "c_rcs_estimate",
+      "c_cd_area_over_mass",
+      "c_cr_area_over_mass",
+      "c_sedr",
+      "c_j2k_sma",
+      "c_j2k_ecc",
+      "c_j2k_inc",
+      "c_ct_r",
+      "c_cn_r",
+      "c_cn_t",
+      "c_crdot_r",
+      "c_crdot_t",
+      "c_crdot_n",
+      "c_ctdot_r",
+      "c_ctdot_t",
+      "c_ctdot_n",
+      "c_ctdot_rdot",
+      "c_cndot_r",
+      "c_cndot_t",
+      "c_cndot_n",
+      "c_cndot_rdot",
+      "c_cndot_tdot",
+      "t_span",
+      "c_span",
+      "t_h_apo",
+      "t_h_per",
+      "c_h_apo",
+      "c_h_per",
+      "geocentric_latitude",
+      "azimuth",
+      "elevation",
+      "mahalanobis_distance",
+      "t_position_covariance_det",
+      "c_position_covariance_det",
+      "t_sigma_r",
+      "c_sigma_r",
+      "t_sigma_t",
+      "c_sigma_t",
+      "t_sigma_n",
+      "c_sigma_n",
+      "t_sigma_rdot",
+      "c_sigma_rdot",
+      "t_sigma_tdot",
+      "c_sigma_tdot",
+      "t_sigma_ndot",
+      "c_sigma_ndot",
+      "F10",
+      "F3M",
+      "SSN",
+      "AP"
+    ]
+  },
+  "temporal_unit": {
+    "H2": {
+      "total_columns": 37,
+      "columns": [
+        "event_id",
+        "step_index",
+        "horizon_days",
+        "time_to_tca",
+        "c_object_type",
+        "max_risk_estimate",
+        "max_risk_scaling",
+        "miss_distance",
+        "relative_speed",
+        "relative_position_r",
+        "relative_position_t",
+        "relative_position_n",
+        "relative_velocity_r",
+        "relative_velocity_t",
+        "relative_velocity_n",
+        "mahalanobis_distance",
+        "geocentric_latitude",
+        "azimuth",
+        "elevation",
+        "t_sigma_r",
+        "t_sigma_t",
+        "t_sigma_n",
+        "c_sigma_r",
+        "c_sigma_t",
+        "c_sigma_n",
+        "t_obs_available",
+        "t_obs_used",
+        "c_obs_available",
+        "c_obs_used",
+        "t_residuals_accepted",
+        "c_residuals_accepted",
+        "t_weighted_rms",
+        "c_weighted_rms",
+        "F10",
+        "F3M",
+        "AP",
+        "SSN"
+      ],
+      "metadata_cols": [
+        "event_id",
+        "step_index",
+        "horizon_days"
+      ],
+      "feature_cols_count": 34,
+      "feature_cols": [
+        "time_to_tca",
+        "c_object_type",
+        "max_risk_estimate",
+        "max_risk_scaling",
+        "miss_distance",
+        "relative_speed",
+        "relative_position_r",
+        "relative_position_t",
+        "relative_position_n",
+        "relative_velocity_r",
+        "relative_velocity_t",
+        "relative_velocity_n",
+        "mahalanobis_distance",
+        "geocentric_latitude",
+        "azimuth",
+        "elevation",
+        "t_sigma_r",
+        "t_sigma_t",
+        "t_sigma_n",
+        "c_sigma_r",
+        "c_sigma_t",
+        "c_sigma_n",
+        "t_obs_available",
+        "t_obs_used",
+        "c_obs_available",
+        "c_obs_used",
+        "t_residuals_accepted",
+        "c_residuals_accepted",
+        "t_weighted_rms",
+        "c_weighted_rms",
+        "F10",
+        "F3M",
+        "AP",
+        "SSN"
+      ]
+    },
+    "H3": {
+      "total_columns": 37,
+      "columns": [
+        "event_id",
+        "step_index",
+        "horizon_days",
+        "time_to_tca",
+        "c_object_type",
+        "max_risk_estimate",
+        "max_risk_scaling",
+        "miss_distance",
+        "relative_speed",
+        "relative_position_r",
+        "relative_position_t",
+        "relative_position_n",
+        "relative_velocity_r",
+        "relative_velocity_t",
+        "relative_velocity_n",
+        "mahalanobis_distance",
+        "geocentric_latitude",
+        "azimuth",
+        "elevation",
+        "t_sigma_r",
+        "t_sigma_t",
+        "t_sigma_n",
+        "c_sigma_r",
+        "c_sigma_t",
+        "c_sigma_n",
+        "t_obs_available",
+        "t_obs_used",
+        "c_obs_available",
+        "c_obs_used",
+        "t_residuals_accepted",
+        "c_residuals_accepted",
+        "t_weighted_rms",
+        "c_weighted_rms",
+        "F10",
+        "F3M",
+        "AP",
+        "SSN"
+      ],
+      "metadata_cols": [
+        "event_id",
+        "step_index",
+        "horizon_days"
+      ],
+      "feature_cols_count": 34,
+      "feature_cols": [
+        "time_to_tca",
+        "c_object_type",
+        "max_risk_estimate",
+        "max_risk_scaling",
+        "miss_distance",
+        "relative_speed",
+        "relative_position_r",
+        "relative_position_t",
+        "relative_position_n",
+        "relative_velocity_r",
+        "relative_velocity_t",
+        "relative_velocity_n",
+        "mahalanobis_distance",
+        "geocentric_latitude",
+        "azimuth",
+        "elevation",
+        "t_sigma_r",
+        "t_sigma_t",
+        "t_sigma_n",
+        "c_sigma_r",
+        "c_sigma_t",
+        "c_sigma_n",
+        "t_obs_available",
+        "t_obs_used",
+        "c_obs_available",
+        "c_obs_used",
+        "t_residuals_accepted",
+        "c_residuals_accepted",
+        "t_weighted_rms",
+        "c_weighted_rms",
+        "F10",
+        "F3M",
+        "AP",
+        "SSN"
+      ]
+    },
+    "H5": {
+      "total_columns": 37,
+      "columns": [
+        "event_id",
+        "step_index",
+        "horizon_days",
+        "time_to_tca",
+        "c_object_type",
+        "max_risk_estimate",
+        "max_risk_scaling",
+        "miss_distance",
+        "relative_speed",
+        "relative_position_r",
+        "relative_position_t",
+        "relative_position_n",
+        "relative_velocity_r",
+        "relative_velocity_t",
+        "relative_velocity_n",
+        "mahalanobis_distance",
+        "geocentric_latitude",
+        "azimuth",
+        "elevation",
+        "t_sigma_r",
+        "t_sigma_t",
+        "t_sigma_n",
+        "c_sigma_r",
+        "c_sigma_t",
+        "c_sigma_n",
+        "t_obs_available",
+        "t_obs_used",
+        "c_obs_available",
+        "c_obs_used",
+        "t_residuals_accepted",
+        "c_residuals_accepted",
+        "t_weighted_rms",
+        "c_weighted_rms",
+        "F10",
+        "F3M",
+        "AP",
+        "SSN"
+      ],
+      "metadata_cols": [
+        "event_id",
+        "step_index",
+        "horizon_days"
+      ],
+      "feature_cols_count": 34,
+      "feature_cols": [
+        "time_to_tca",
+        "c_object_type",
+        "max_risk_estimate",
+        "max_risk_scaling",
+        "miss_distance",
+        "relative_speed",
+        "relative_position_r",
+        "relative_position_t",
+        "relative_position_n",
+        "relative_velocity_r",
+        "relative_velocity_t",
+        "relative_velocity_n",
+        "mahalanobis_distance",
+        "geocentric_latitude",
+        "azimuth",
+        "elevation",
+        "t_sigma_r",
+        "t_sigma_t",
+        "t_sigma_n",
+        "c_sigma_r",
+        "c_sigma_t",
+        "c_sigma_n",
+        "t_obs_available",
+        "t_obs_used",
+        "c_obs_available",
+        "c_obs_used",
+        "t_residuals_accepted",
+        "c_residuals_accepted",
+        "t_weighted_rms",
+        "c_weighted_rms",
+        "F10",
+        "F3M",
+        "AP",
+        "SSN"
+      ]
+    }
+  },
+  "temporal_ordering": {
+    "H2": {
+      "events_checked": 11942,
+      "total_steps_checked": 111939,
+      "step_index_violations": 0,
+      "time_to_tca_ordering_violations": 0,
+      "is_monotonic_step_index": true,
+      "is_correct_temporal_direction": true
+    },
+    "H3": {
+      "events_checked": 11273,
+      "total_steps_checked": 88237,
+      "step_index_violations": 0,
+      "time_to_tca_ordering_violations": 0,
+      "is_monotonic_step_index": true,
+      "is_correct_temporal_direction": true
+    },
+    "H5": {
+      "events_checked": 9484,
+      "total_steps_checked": 42524,
+      "step_index_violations": 0,
+      "time_to_tca_ordering_violations": 0,
+      "is_monotonic_step_index": true,
+      "is_correct_temporal_direction": true
+    }
+  },
+  "sequence_lengths": {
+    "H2": {
+      "unique_events": 11942,
+      "total_cdms": 111939,
+      "min_length": 1,
+      "max_length": 17,
+      "mean_length": 9.3736,
+      "median_length": 10.0,
+      "percentiles": {
+        "p1": 1.0,
+        "p5": 2.0,
+        "p10": 2.0,
+        "p25": 4.0,
+        "p50": 10.0,
+        "p75": 15.0,
+        "p90": 15.0,
+        "p95": 15.0,
+        "p99": 16.0
+      },
+      "distribution": {
+        "1": 497,
+        "2": 1122,
+        "3": 946,
+        "4": 742,
+        "5": 722,
+        "6": 485,
+        "7": 447,
+        "8": 361,
+        "9": 393,
+        "10": 345,
+        "11": 258,
+        "12": 279,
+        "13": 473,
+        "14": 1709,
+        "15": 3004,
+        "16": 156,
+        "17": 3
+      },
+      "mismatch_with_events_csv": 0,
+      "mismatch_with_raw_cdms": 0
+    },
+    "H3": {
+      "unique_events": 11273,
+      "total_cdms": 88237,
+      "min_length": 1,
+      "max_length": 14,
+      "mean_length": 7.8273,
+      "median_length": 9.0,
+      "percentiles": {
+        "p1": 1.0,
+        "p5": 2.0,
+        "p10": 2.0,
+        "p25": 4.0,
+        "p50": 9.0,
+        "p75": 12.0,
+        "p90": 12.0,
+        "p95": 12.0,
+        "p99": 13.0
+      },
+      "distribution": {
+        "1": 547,
+        "2": 1170,
+        "3": 984,
+        "4": 869,
+        "5": 520,
+        "6": 460,
+        "7": 447,
+        "8": 334,
+        "9": 339,
+        "10": 495,
+        "11": 1690,
+        "12": 3266,
+        "13": 150,
+        "14": 2
+      },
+      "mismatch_with_events_csv": 0,
+      "mismatch_with_raw_cdms": 0
+    },
+    "H5": {
+      "unique_events": 9484,
+      "total_cdms": 42524,
+      "min_length": 1,
+      "max_length": 8,
+      "mean_length": 4.4838,
+      "median_length": 5.0,
+      "percentiles": {
+        "p1": 1.0,
+        "p5": 1.0,
+        "p10": 2.0,
+        "p25": 3.0,
+        "p50": 5.0,
+        "p75": 6.0,
+        "p90": 6.0,
+        "p95": 6.0,
+        "p99": 7.0
+      },
+      "distribution": {
+        "1": 853,
+        "2": 1277,
+        "3": 686,
+        "4": 627,
+        "5": 1862,
+        "6": 4014,
+        "7": 163,
+        "8": 2
+      },
+      "mismatch_with_events_csv": 0,
+      "mismatch_with_raw_cdms": 0
+    }
+  },
+  "horizon_cutoffs": {
+    "H2": {
+      "cutoff_days": 2.0,
+      "total_rows": 111939,
+      "unique_events": 11942,
+      "min_time_to_tca": 2.0000137037037042,
+      "max_time_to_tca": 6.993832407407408,
+      "violations_count": 0,
+      "is_valid": true
+    },
+    "H3": {
+      "cutoff_days": 3.0,
+      "total_rows": 88237,
+      "unique_events": 11273,
+      "min_time_to_tca": 3.000056354166667,
+      "max_time_to_tca": 6.993832407407408,
+      "violations_count": 0,
+      "is_valid": true
+    },
+    "H5": {
+      "cutoff_days": 5.0,
+      "total_rows": 42524,
+      "unique_events": 9484,
+      "min_time_to_tca": 5.00001144675926,
+      "max_time_to_tca": 6.993832407407408,
+      "violations_count": 0,
+      "is_valid": true
+    }
+  },
+  "target_alignment": {
+    "H2": {
+      "events_checked": 11942,
+      "mismatches": 0,
+      "missing_targets": 0,
+      "nan_inf_targets": 0,
+      "is_aligned": true
+    },
+    "H3": {
+      "events_checked": 11273,
+      "mismatches": 0,
+      "missing_targets": 0,
+      "nan_inf_targets": 0,
+      "is_aligned": true
+    },
+    "H5": {
+      "events_checked": 9484,
+      "mismatches": 0,
+      "missing_targets": 0,
+      "nan_inf_targets": 0,
+      "is_aligned": true
+    }
+  },
+  "perturbation_test": {
+    "H2": {
+      "events_tested": 11942,
+      "discrepancies": 0,
+      "max_numerical_difference": 0.0,
+      "is_leakage_free": true
+    },
+    "H3": {
+      "events_tested": 11273,
+      "discrepancies": 0,
+      "max_numerical_difference": 0.0,
+      "is_leakage_free": true
+    },
+    "H5": {
+      "events_tested": 9484,
+      "discrepancies": 0,
+      "max_numerical_difference": 0.0,
+      "is_leakage_free": true
+    }
+  },
+  "feature_audit": {
+    "direct_features_count": 34,
+    "manifest_direct_count": 34,
+    "direct_matches_manifest": true,
+    "needs_review_count": 23,
+    "not_available_count": 8,
+    "target_in_direct_features": false,
+    "event_id_in_direct_features": false,
+    "mission_id_in_direct_features": false,
+    "H2_features_equal_direct": true,
+    "H2_target_in_seq_cols": false,
+    "H2_mission_id_in_seq_cols": false,
+    "H3_features_equal_direct": true,
+    "H3_target_in_seq_cols": false,
+    "H3_mission_id_in_seq_cols": false,
+    "H5_features_equal_direct": true,
+    "H5_target_in_seq_cols": false,
+    "H5_mission_id_in_seq_cols": false
+  },
+  "split_leakage": {
+    "master_train_count": 9207,
+    "master_val_count": 1973,
+    "master_test_count": 1974,
+    "master_total_events": 13154,
+    "master_train_val_overlap": 0,
+    "master_train_test_overlap": 0,
+    "master_val_test_overlap": 0,
+    "horizon_splits": {
+      "H2": {
+        "total_eligible": 11942,
+        "train": 8348,
+        "val": 1795,
+        "test": 1799,
+        "train_val_overlap": 0,
+        "train_test_overlap": 0,
+        "val_test_overlap": 0,
+        "sum_equals_total": true
+      },
+      "H3": {
+        "total_eligible": 11273,
+        "train": 7891,
+        "val": 1682,
+        "test": 1700,
+        "train_val_overlap": 0,
+        "train_test_overlap": 0,
+        "val_test_overlap": 0,
+        "sum_equals_total": true
+      },
+      "H5": {
+        "total_eligible": 9484,
+        "train": 6643,
+        "val": 1404,
+        "test": 1437,
+        "train_val_overlap": 0,
+        "train_test_overlap": 0,
+        "val_test_overlap": 0,
+        "sum_equals_total": true
+      }
+    },
+    "cross_horizon_leakage": {
+      "Train(H2)_Val(H3)": 0,
+      "Train(H2)_Test(H3)": 0,
+      "Train(H2)_Val(H5)": 0,
+      "Train(H2)_Test(H5)": 0,
+      "Train(H3)_Val(H2)": 0,
+      "Train(H3)_Test(H2)": 0,
+      "Train(H3)_Val(H5)": 0,
+      "Train(H3)_Test(H5)": 0,
+      "Train(H5)_Val(H2)": 0,
+      "Train(H5)_Test(H2)": 0,
+      "Train(H5)_Val(H3)": 0,
+      "Train(H5)_Test(H3)": 0
+    }
+  },
+  "tensor_contract": {
+    "len_1": {
+      "seq_len": 1,
+      "pad_len": 22,
+      "pad_mask_correct": true,
+      "valid_mask_correct": true,
+      "pad_features_strictly_zero": true,
+      "newest_step_at_index_22": true,
+      "target_aligned": true
+    },
+    "len_2": {
+      "seq_len": 2,
+      "pad_len": 21,
+      "pad_mask_correct": true,
+      "valid_mask_correct": true,
+      "pad_features_strictly_zero": true,
+      "newest_step_at_index_22": true,
+      "target_aligned": true
+    },
+    "len_5": {
+      "seq_len": 5,
+      "pad_len": 18,
+      "pad_mask_correct": true,
+      "valid_mask_correct": true,
+      "pad_features_strictly_zero": true,
+      "newest_step_at_index_22": true,
+      "target_aligned": true
+    },
+    "len_10": {
+      "seq_len": 10,
+      "pad_len": 13,
+      "pad_mask_correct": true,
+      "valid_mask_correct": true,
+      "pad_features_strictly_zero": true,
+      "newest_step_at_index_22": true,
+      "target_aligned": true
+    },
+    "len_23": {
+      "seq_len": 23,
+      "pad_len": 0,
+      "pad_mask_correct": true,
+      "valid_mask_correct": true,
+      "pad_features_strictly_zero": true,
+      "newest_step_at_index_22": true,
+      "target_aligned": true
+    }
+  },
+  "missingness": {
+    "H2": {
+      "total_cdms": 111939,
+      "missing_by_feature": [
+        {
+          "feature": "F10",
+          "missing_count": 4856,
+          "missing_pct": 4.3381
+        },
+        {
+          "feature": "F3M",
+          "missing_count": 4856,
+          "missing_pct": 4.3381
+        },
+        {
+          "feature": "AP",
+          "missing_count": 4856,
+          "missing_pct": 4.3381
+        },
+        {
+          "feature": "SSN",
+          "missing_count": 4856,
+          "missing_pct": 4.3381
+        },
+        {
+          "feature": "c_sigma_r",
+          "missing_count": 11,
+          "missing_pct": 0.0098
+        },
+        {
+          "feature": "c_sigma_t",
+          "missing_count": 11,
+          "missing_pct": 0.0098
+        },
+        {
+          "feature": "c_sigma_n",
+          "missing_count": 11,
+          "missing_pct": 0.0098
+        },
+        {
+          "feature": "c_obs_available",
+          "missing_count": 11,
+          "missing_pct": 0.0098
+        },
+        {
+          "feature": "c_obs_used",
+          "missing_count": 11,
+          "missing_pct": 0.0098
+        },
+        {
+          "feature": "c_residuals_accepted",
+          "missing_count": 11,
+          "missing_pct": 0.0098
+        },
+        {
+          "feature": "c_weighted_rms",
+          "missing_count": 11,
+          "missing_pct": 0.0098
+        },
+        {
+          "feature": "time_to_tca",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "c_object_type",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "max_risk_estimate",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "max_risk_scaling",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "miss_distance",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_speed",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_position_r",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_position_t",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_position_n",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_velocity_r",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_velocity_t",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_velocity_n",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "mahalanobis_distance",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "geocentric_latitude",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "azimuth",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "elevation",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_sigma_r",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_sigma_t",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_sigma_n",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_obs_available",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_obs_used",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_residuals_accepted",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_weighted_rms",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        }
+      ],
+      "top_3_missing": [
+        {
+          "feature": "F10",
+          "missing_count": 4856,
+          "missing_pct": 4.3381
+        },
+        {
+          "feature": "F3M",
+          "missing_count": 4856,
+          "missing_pct": 4.3381
+        },
+        {
+          "feature": "AP",
+          "missing_count": 4856,
+          "missing_pct": 4.3381
+        }
+      ]
+    },
+    "H3": {
+      "total_cdms": 88237,
+      "missing_by_feature": [
+        {
+          "feature": "F10",
+          "missing_count": 3859,
+          "missing_pct": 4.3734
+        },
+        {
+          "feature": "F3M",
+          "missing_count": 3859,
+          "missing_pct": 4.3734
+        },
+        {
+          "feature": "AP",
+          "missing_count": 3859,
+          "missing_pct": 4.3734
+        },
+        {
+          "feature": "SSN",
+          "missing_count": 3859,
+          "missing_pct": 4.3734
+        },
+        {
+          "feature": "c_sigma_r",
+          "missing_count": 11,
+          "missing_pct": 0.0125
+        },
+        {
+          "feature": "c_sigma_t",
+          "missing_count": 11,
+          "missing_pct": 0.0125
+        },
+        {
+          "feature": "c_sigma_n",
+          "missing_count": 11,
+          "missing_pct": 0.0125
+        },
+        {
+          "feature": "c_obs_available",
+          "missing_count": 11,
+          "missing_pct": 0.0125
+        },
+        {
+          "feature": "c_obs_used",
+          "missing_count": 11,
+          "missing_pct": 0.0125
+        },
+        {
+          "feature": "c_residuals_accepted",
+          "missing_count": 11,
+          "missing_pct": 0.0125
+        },
+        {
+          "feature": "c_weighted_rms",
+          "missing_count": 11,
+          "missing_pct": 0.0125
+        },
+        {
+          "feature": "time_to_tca",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "c_object_type",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "max_risk_estimate",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "max_risk_scaling",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "miss_distance",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_speed",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_position_r",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_position_t",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_position_n",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_velocity_r",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_velocity_t",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_velocity_n",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "mahalanobis_distance",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "geocentric_latitude",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "azimuth",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "elevation",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_sigma_r",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_sigma_t",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_sigma_n",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_obs_available",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_obs_used",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_residuals_accepted",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_weighted_rms",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        }
+      ],
+      "top_3_missing": [
+        {
+          "feature": "F10",
+          "missing_count": 3859,
+          "missing_pct": 4.3734
+        },
+        {
+          "feature": "F3M",
+          "missing_count": 3859,
+          "missing_pct": 4.3734
+        },
+        {
+          "feature": "AP",
+          "missing_count": 3859,
+          "missing_pct": 4.3734
+        }
+      ]
+    },
+    "H5": {
+      "total_cdms": 42524,
+      "missing_by_feature": [
+        {
+          "feature": "F10",
+          "missing_count": 1916,
+          "missing_pct": 4.5057
+        },
+        {
+          "feature": "F3M",
+          "missing_count": 1916,
+          "missing_pct": 4.5057
+        },
+        {
+          "feature": "AP",
+          "missing_count": 1916,
+          "missing_pct": 4.5057
+        },
+        {
+          "feature": "SSN",
+          "missing_count": 1916,
+          "missing_pct": 4.5057
+        },
+        {
+          "feature": "time_to_tca",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "c_object_type",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "max_risk_estimate",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "max_risk_scaling",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "miss_distance",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_speed",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_position_r",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_position_t",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_position_n",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_velocity_r",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_velocity_t",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "relative_velocity_n",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "mahalanobis_distance",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "geocentric_latitude",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "azimuth",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "elevation",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_sigma_r",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_sigma_t",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_sigma_n",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "c_sigma_r",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "c_sigma_t",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "c_sigma_n",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_obs_available",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_obs_used",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "c_obs_available",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "c_obs_used",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_residuals_accepted",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "c_residuals_accepted",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "t_weighted_rms",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        },
+        {
+          "feature": "c_weighted_rms",
+          "missing_count": 0,
+          "missing_pct": 0.0
+        }
+      ],
+      "top_3_missing": [
+        {
+          "feature": "F10",
+          "missing_count": 1916,
+          "missing_pct": 4.5057
+        },
+        {
+          "feature": "F3M",
+          "missing_count": 1916,
+          "missing_pct": 4.5057
+        },
+        {
+          "feature": "AP",
+          "missing_count": 1916,
+          "missing_pct": 4.5057
+        }
+      ]
+    }
+  },
+  "integrity": {
+    "H2": {
+      "total_rows": 111939,
+      "unique_events": 11942,
+      "expected_events": 11942,
+      "duplicate_event_step_pairs": 0,
+      "non_contiguous_indices_events": 0,
+      "is_integral": true
+    },
+    "H3": {
+      "total_rows": 88237,
+      "unique_events": 11273,
+      "expected_events": 11273,
+      "duplicate_event_step_pairs": 0,
+      "non_contiguous_indices_events": 0,
+      "is_integral": true
+    },
+    "H5": {
+      "total_rows": 42524,
+      "unique_events": 9484,
+      "expected_events": 9484,
+      "duplicate_event_step_pairs": 0,
+      "non_contiguous_indices_events": 0,
+      "is_integral": true
+    }
+  },
+  "traceability": {
+    "H2": {
+      "events_traced_count": 10,
+      "all_traces_exact": true,
+      "traces": [
+        {
+          "event_id": "39",
+          "raw_total_cdms": 7,
+          "qualifying_cdms": 1,
+          "sequence_rows": 1,
+          "raw_final_risk": -7.645507399410564,
+          "dataset_final_risk": -7.645507399410564,
+          "earliest_raw_tca": 5.09995394675926,
+          "earliest_seq_tca": 5.09995394675926,
+          "anchor_raw_tca": 5.09995394675926,
+          "anchor_seq_tca": 5.09995394675926,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "105",
+          "raw_total_cdms": 3,
+          "qualifying_cdms": 1,
+          "sequence_rows": 1,
+          "raw_final_risk": -30.0,
+          "dataset_final_risk": -30.0,
+          "earliest_raw_tca": 3.4673554629629635,
+          "earliest_seq_tca": 3.4673554629629635,
+          "anchor_raw_tca": 3.4673554629629635,
+          "anchor_seq_tca": 3.4673554629629635,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "7785",
+          "raw_total_cdms": 5,
+          "qualifying_cdms": 4,
+          "sequence_rows": 4,
+          "raw_final_risk": -30.0,
+          "dataset_final_risk": -30.0,
+          "earliest_raw_tca": 3.2183396180555555,
+          "earliest_seq_tca": 3.2183396180555555,
+          "anchor_raw_tca": 2.1923673726851853,
+          "anchor_seq_tca": 2.1923673726851853,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "9471",
+          "raw_total_cdms": 16,
+          "qualifying_cdms": 10,
+          "sequence_rows": 10,
+          "raw_final_risk": -30.0,
+          "dataset_final_risk": -30.0,
+          "earliest_raw_tca": 4.955658043981481,
+          "earliest_seq_tca": 4.955658043981481,
+          "anchor_raw_tca": 2.050461377314815,
+          "anchor_seq_tca": 2.050461377314815,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "710",
+          "raw_total_cdms": 21,
+          "qualifying_cdms": 15,
+          "sequence_rows": 15,
+          "raw_final_risk": -8.940058111938045,
+          "dataset_final_risk": -8.940058111938045,
+          "earliest_raw_tca": 6.816287361111112,
+          "earliest_seq_tca": 6.816287361111112,
+          "anchor_raw_tca": 2.163219375,
+          "anchor_seq_tca": 2.163219375,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "11942",
+          "raw_total_cdms": 23,
+          "qualifying_cdms": 17,
+          "sequence_rows": 17,
+          "raw_final_risk": -30.0,
+          "dataset_final_risk": -30.0,
+          "earliest_raw_tca": 6.957558194444445,
+          "earliest_seq_tca": 6.957558194444445,
+          "anchor_raw_tca": 2.0563560532407408,
+          "anchor_seq_tca": 2.0563560532407408,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "7088",
+          "raw_total_cdms": 23,
+          "qualifying_cdms": 17,
+          "sequence_rows": 17,
+          "raw_final_risk": -9.449282576530717,
+          "dataset_final_risk": -9.449282576530717,
+          "earliest_raw_tca": 6.981011064814815,
+          "earliest_seq_tca": 6.981011064814815,
+          "anchor_raw_tca": 2.0954101736111115,
+          "anchor_seq_tca": 2.0954101736111115,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "1000",
+          "raw_total_cdms": 20,
+          "qualifying_cdms": 14,
+          "sequence_rows": 14,
+          "raw_final_risk": -30.0,
+          "dataset_final_risk": -30.0,
+          "earliest_raw_tca": 6.519421064814813,
+          "earliest_seq_tca": 6.519421064814813,
+          "anchor_raw_tca": 2.245105717592593,
+          "anchor_seq_tca": 2.245105717592593,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "5000",
+          "raw_total_cdms": 16,
+          "qualifying_cdms": 10,
+          "sequence_rows": 10,
+          "raw_final_risk": -30.0,
+          "dataset_final_risk": -30.0,
+          "earliest_raw_tca": 6.327878981481483,
+          "earliest_seq_tca": 6.327878981481483,
+          "anchor_raw_tca": 2.073962488425926,
+          "anchor_seq_tca": 2.073962488425926,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "10000",
+          "raw_total_cdms": 13,
+          "qualifying_cdms": 7,
+          "sequence_rows": 7,
+          "raw_final_risk": -21.05833952161161,
+          "dataset_final_risk": -21.05833952161161,
+          "earliest_raw_tca": 5.471888599537038,
+          "earliest_seq_tca": 5.471888599537038,
+          "anchor_raw_tca": 2.284122511574074,
+          "anchor_seq_tca": 2.284122511574074,
+          "is_exact_match": true
+        }
+      ]
+    },
+    "H3": {
+      "events_traced_count": 10,
+      "all_traces_exact": true,
+      "traces": [
+        {
+          "event_id": "39",
+          "raw_total_cdms": 7,
+          "qualifying_cdms": 1,
+          "sequence_rows": 1,
+          "raw_final_risk": -7.645507399410564,
+          "dataset_final_risk": -7.645507399410564,
+          "earliest_raw_tca": 5.09995394675926,
+          "earliest_seq_tca": 5.09995394675926,
+          "anchor_raw_tca": 5.09995394675926,
+          "anchor_seq_tca": 5.09995394675926,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "90",
+          "raw_total_cdms": 4,
+          "qualifying_cdms": 1,
+          "sequence_rows": 1,
+          "raw_final_risk": -30.0,
+          "dataset_final_risk": -30.0,
+          "earliest_raw_tca": 3.239746712962964,
+          "earliest_seq_tca": 3.239746712962964,
+          "anchor_raw_tca": 3.239746712962964,
+          "anchor_seq_tca": 3.239746712962964,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "1699",
+          "raw_total_cdms": 13,
+          "qualifying_cdms": 4,
+          "sequence_rows": 4,
+          "raw_final_risk": -30.0,
+          "dataset_final_risk": -30.0,
+          "earliest_raw_tca": 4.583355625,
+          "earliest_seq_tca": 4.583355625,
+          "anchor_raw_tca": 3.3069445023148147,
+          "anchor_seq_tca": 3.3069445023148147,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "11969",
+          "raw_total_cdms": 19,
+          "qualifying_cdms": 9,
+          "sequence_rows": 9,
+          "raw_final_risk": -30.0,
+          "dataset_final_risk": -30.0,
+          "earliest_raw_tca": 6.051439432870372,
+          "earliest_seq_tca": 6.051439432870372,
+          "anchor_raw_tca": 3.4430848148148145,
+          "anchor_seq_tca": 3.4430848148148145,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "2314",
+          "raw_total_cdms": 20,
+          "qualifying_cdms": 12,
+          "sequence_rows": 12,
+          "raw_final_risk": -30.0,
+          "dataset_final_risk": -30.0,
+          "earliest_raw_tca": 6.648786111111112,
+          "earliest_seq_tca": 6.648786111111112,
+          "anchor_raw_tca": 3.0148152314814816,
+          "anchor_seq_tca": 3.0148152314814816,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "11942",
+          "raw_total_cdms": 23,
+          "qualifying_cdms": 14,
+          "sequence_rows": 14,
+          "raw_final_risk": -30.0,
+          "dataset_final_risk": -30.0,
+          "earliest_raw_tca": 6.957558194444445,
+          "earliest_seq_tca": 6.957558194444445,
+          "anchor_raw_tca": 3.058901377314815,
+          "anchor_seq_tca": 3.058901377314815,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "7088",
+          "raw_total_cdms": 23,
+          "qualifying_cdms": 14,
+          "sequence_rows": 14,
+          "raw_final_risk": -9.449282576530717,
+          "dataset_final_risk": -9.449282576530717,
+          "earliest_raw_tca": 6.981011064814815,
+          "earliest_seq_tca": 6.981011064814815,
+          "anchor_raw_tca": 3.1758933217592595,
+          "anchor_seq_tca": 3.1758933217592595,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "1000",
+          "raw_total_cdms": 20,
+          "qualifying_cdms": 11,
+          "sequence_rows": 11,
+          "raw_final_risk": -30.0,
+          "dataset_final_risk": -30.0,
+          "earliest_raw_tca": 6.519421064814813,
+          "earliest_seq_tca": 6.519421064814813,
+          "anchor_raw_tca": 3.2835867592592587,
+          "anchor_seq_tca": 3.2835867592592587,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "5000",
+          "raw_total_cdms": 16,
+          "qualifying_cdms": 7,
+          "sequence_rows": 7,
+          "raw_final_risk": -30.0,
+          "dataset_final_risk": -30.0,
+          "earliest_raw_tca": 6.327878981481483,
+          "earliest_seq_tca": 6.327878981481483,
+          "anchor_raw_tca": 3.0716282523148157,
+          "anchor_seq_tca": 3.0716282523148157,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "10000",
+          "raw_total_cdms": 13,
+          "qualifying_cdms": 6,
+          "sequence_rows": 6,
+          "raw_final_risk": -21.05833952161161,
+          "dataset_final_risk": -21.05833952161161,
+          "earliest_raw_tca": 5.471888599537038,
+          "earliest_seq_tca": 5.471888599537038,
+          "anchor_raw_tca": 3.278890752314815,
+          "anchor_seq_tca": 3.278890752314815,
+          "is_exact_match": true
+        }
+      ]
+    },
+    "H5": {
+      "events_traced_count": 10,
+      "all_traces_exact": true,
+      "traces": [
+        {
+          "event_id": "23",
+          "raw_total_cdms": 2,
+          "qualifying_cdms": 1,
+          "sequence_rows": 1,
+          "raw_final_risk": -6.005462895701503,
+          "dataset_final_risk": -6.005462895701503,
+          "earliest_raw_tca": 5.041354467592591,
+          "earliest_seq_tca": 5.041354467592591,
+          "anchor_raw_tca": 5.041354467592591,
+          "anchor_seq_tca": 5.041354467592591,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "24",
+          "raw_total_cdms": 2,
+          "qualifying_cdms": 1,
+          "sequence_rows": 1,
+          "raw_final_risk": -9.645123577483766,
+          "dataset_final_risk": -9.645123577483766,
+          "earliest_raw_tca": 6.727062916666667,
+          "earliest_seq_tca": 6.727062916666667,
+          "anchor_raw_tca": 6.727062916666667,
+          "anchor_seq_tca": 6.727062916666667,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "4766",
+          "raw_total_cdms": 13,
+          "qualifying_cdms": 3,
+          "sequence_rows": 3,
+          "raw_final_risk": -30.0,
+          "dataset_final_risk": -30.0,
+          "earliest_raw_tca": 5.894385104166667,
+          "earliest_seq_tca": 5.894385104166667,
+          "anchor_raw_tca": 5.204041967592593,
+          "anchor_seq_tca": 5.204041967592593,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "9350",
+          "raw_total_cdms": 6,
+          "qualifying_cdms": 5,
+          "sequence_rows": 5,
+          "raw_final_risk": -6.2095740826088885,
+          "dataset_final_risk": -6.2095740826088885,
+          "earliest_raw_tca": 6.894384282407408,
+          "earliest_seq_tca": 6.894384282407408,
+          "anchor_raw_tca": 5.187334363425926,
+          "anchor_seq_tca": 5.187334363425926,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "5846",
+          "raw_total_cdms": 21,
+          "qualifying_cdms": 6,
+          "sequence_rows": 6,
+          "raw_final_risk": -30.0,
+          "dataset_final_risk": -30.0,
+          "earliest_raw_tca": 6.547259722222222,
+          "earliest_seq_tca": 6.547259722222222,
+          "anchor_raw_tca": 5.07164232638889,
+          "anchor_seq_tca": 5.07164232638889,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "11942",
+          "raw_total_cdms": 23,
+          "qualifying_cdms": 8,
+          "sequence_rows": 8,
+          "raw_final_risk": -30.0,
+          "dataset_final_risk": -30.0,
+          "earliest_raw_tca": 6.957558194444445,
+          "earliest_seq_tca": 6.957558194444445,
+          "anchor_raw_tca": 5.036677407407407,
+          "anchor_seq_tca": 5.036677407407407,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "7088",
+          "raw_total_cdms": 23,
+          "qualifying_cdms": 8,
+          "sequence_rows": 8,
+          "raw_final_risk": -9.449282576530717,
+          "dataset_final_risk": -9.449282576530717,
+          "earliest_raw_tca": 6.981011064814815,
+          "earliest_seq_tca": 6.981011064814815,
+          "anchor_raw_tca": 5.03355443287037,
+          "anchor_seq_tca": 5.03355443287037,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "1000",
+          "raw_total_cdms": 20,
+          "qualifying_cdms": 5,
+          "sequence_rows": 5,
+          "raw_final_risk": -30.0,
+          "dataset_final_risk": -30.0,
+          "earliest_raw_tca": 6.519421064814813,
+          "earliest_seq_tca": 6.519421064814813,
+          "anchor_raw_tca": 5.2392491087962965,
+          "anchor_seq_tca": 5.2392491087962965,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "5000",
+          "raw_total_cdms": 16,
+          "qualifying_cdms": 4,
+          "sequence_rows": 4,
+          "raw_final_risk": -30.0,
+          "dataset_final_risk": -30.0,
+          "earliest_raw_tca": 6.327878981481483,
+          "earliest_seq_tca": 6.327878981481483,
+          "anchor_raw_tca": 5.000578368055557,
+          "anchor_seq_tca": 5.000578368055557,
+          "is_exact_match": true
+        },
+        {
+          "event_id": "10000",
+          "raw_total_cdms": 13,
+          "qualifying_cdms": 1,
+          "sequence_rows": 1,
+          "raw_final_risk": -21.05833952161161,
+          "dataset_final_risk": -21.05833952161161,
+          "earliest_raw_tca": 5.471888599537038,
+          "earliest_seq_tca": 5.471888599537038,
+          "anchor_raw_tca": 5.471888599537038,
+          "anchor_seq_tca": 5.471888599537038,
+          "is_exact_match": true
+        }
+      ]
+    }
+  },
+  "checksums_final": {
+    "raw_train": {
+      "path": "data/raw/esa/train_data.csv",
+      "sha256": "ba47ce80580d5d6ff523ddc1d724901dbdfb3a5afdc5e755f0ca2bcefe6e4eb6",
+      "size_bytes": 233600296
+    },
+    "events_H2": {
+      "path": "data/processed/events/events_H2.csv",
+      "sha256": "3977a0b8adaaa6eeb29b107381f5ed19856e9e9adb44b1f511574fab547c8dd3",
+      "size_bytes": 5178475
+    },
+    "events_H3": {
+      "path": "data/processed/events/events_H3.csv",
+      "sha256": "6840e2c7ffdcdafaec46172b3051bce2063bb51c2a5b22a2064473902090f049",
+      "size_bytes": 4885784
+    },
+    "events_H5": {
+      "path": "data/processed/events/events_H5.csv",
+      "sha256": "89c427f05285606da42b2004a2e6175547cf78834e5f900e66d9f22cf859a51a",
+      "size_bytes": 4095942
+    },
+    "sequences_H2": {
+      "path": "data/processed/events/sequences_H2.csv",
+      "sha256": "4ccc7ddc779c53d99ad5d0775ed5e4d87d1b6470062dc0921fbbaeedd3bc8c0c",
+      "size_bytes": 43119186
+    },
+    "sequences_H3": {
+      "path": "data/processed/events/sequences_H3.csv",
+      "sha256": "7901ebbc5b073c31fffe0f967a96ea1ffdea41034771f6acccb2a3d089b9a097",
+      "size_bytes": 33973238
+    },
+    "sequences_H5": {
+      "path": "data/processed/events/sequences_H5.csv",
+      "sha256": "fb5ca14f20d7dfbe07ac74b5d5a772ebd4ed81dd3f234e87b31b4e1099442243",
+      "size_bytes": 16364247
+    }
+  },
+  "checksums_unchanged": true
+}

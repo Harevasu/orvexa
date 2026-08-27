@@ -59,6 +59,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.venv-orvexa/
 
 # IDE / Editor settings
 .idea/
@@ -103,3 +104,5 @@ docs/*
 
 # Reference Code Repository
 reference_repo/*
+
+THIRD_PARTY_NOTICES.md
