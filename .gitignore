@@ -99,6 +99,7 @@ models/*
 
 # ORVEXA Reports
 reports/*
+docs/*
 
 # Reference Code Repository
 reference_repo/*

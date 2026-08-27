@@ -66,7 +66,7 @@ def compute_ranking_metrics(
 
     for b in budgets:
         pct_label = int(round(b * 100))
-        k = max(1, int(math.ceil(b * n_total)))
+        k = max(1, int(math.floor(b * n_total)))
         k = min(k, n_total)
 
         top_k_binary = ordered_binary_relevance[:k]

@@ -11,6 +11,23 @@ def _solve_ridge_analytical(
     X: List[List[float]], y: List[float], alpha: float = 1.0
 ) -> Tuple[List[float], float]:
     """Solve Ridge Regression w = (X^T X + alpha*I)^-1 X^T y with intercept."""
+    try:
+        import numpy as np
+        X_arr = np.asarray(X, dtype=np.float64)
+        y_arr = np.asarray(y, dtype=np.float64)
+        y_mean = float(np.mean(y_arr))
+        x_means = np.mean(X_arr, axis=0)
+        X_c = X_arr - x_means
+        y_c = y_arr - y_mean
+        XtX = X_c.T @ X_c
+        np.fill_diagonal(XtX, XtX.diagonal() + alpha)
+        Xty = X_c.T @ y_c
+        weights = np.linalg.solve(XtX, Xty)
+        intercept = float(y_mean - np.dot(weights, x_means))
+        return [float(w) for w in weights], intercept
+    except Exception:
+        pass
+
     n_samples = len(X)
     n_features = len(X[0])
 
@@ -117,11 +134,18 @@ class LinearRiskModel:
         if not self.is_fitted_:
             raise RuntimeError("Model must be fitted before making predictions.")
 
-        predictions: List[float] = []
-        for row in X:
-            val = self.intercept_ + sum(w * x for w, x in zip(self.weights_, row))
-            predictions.append(val)
-        return predictions
+        try:
+            import numpy as np
+            X_arr = np.asarray(X, dtype=np.float64)
+            w_arr = np.asarray(self.weights_, dtype=np.float64)
+            preds = np.dot(X_arr, w_arr) + self.intercept_
+            return [float(p) for p in preds]
+        except Exception:
+            predictions: List[float] = []
+            for row in X:
+                val = self.intercept_ + sum(w * x for w, x in zip(self.weights_, row))
+                predictions.append(val)
+            return predictions
 
     def predict_probability(self, X: List[List[float]], threshold_log10: float) -> List[float]:
         """Predict probability that risk exceeds threshold_log10 using logistic scaling."""
