@@ -225,6 +225,7 @@ class TCNRiskModel:
         batch_size: int = 64,
         max_seq_len: int = 23,
         seed: int = 42,
+        device: Optional[str] = None,
         config: Optional[Dict[str, Any]] = None,
     ) -> None:
         self.in_features = in_features
@@ -240,16 +241,24 @@ class TCNRiskModel:
         self.config = config or {}
         self.is_fitted_: bool = False
         self.network_: Any = None
+        self.training_stats_: Dict[str, Any] = {}
 
         if TORCH_AVAILABLE:
             torch.manual_seed(self.seed)
+            if device is not None:
+                self.device_ = device
+            else:
+                self.device_ = "cuda" if torch.cuda.is_available() else "cpu"
+
             self.network_ = MaskedCausalTCN(
                 in_features=self.in_features,
                 channels=self.channels,
                 kernel_size=self.kernel_size,
                 dilations=self.dilations,
                 dropout=self.dropout,
-            )
+            ).to(self.device_)
+        else:
+            self.device_ = "cpu"
 
     def prepare_sequence_tensors(
         self,
@@ -344,32 +353,56 @@ class TCNRiskModel:
         X_val: Optional[Any] = None,
         mask_val: Optional[Any] = None,
         y_val: Optional[List[float]] = None,
-        epochs: int = 5,
+        epochs: int = 50,
+        patience: int = 15,
+        verbose: bool = True,
     ) -> "TCNRiskModel":
-        """Train masked causal TCN using Huber loss."""
+        """Train masked causal TCN using Huber loss with validation tracking and early stopping."""
         if not TORCH_AVAILABLE:
             # Mark as fitted fallback
             self.is_fitted_ = True
             return self
 
-        y_tensor = torch.tensor(y_train, dtype=torch.float32).view(-1, 1)
+        import copy
+
+        self.network_.to(self.device_)
+        y_train_tensor = torch.tensor(y_train, dtype=torch.float32).view(-1, 1)
+
         optimizer = torch.optim.AdamW(
             self.network_.parameters(),
             lr=self.learning_rate,
             weight_decay=self.weight_decay,
         )
+        scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+            optimizer, mode="min", factor=0.5, patience=4, min_lr=1e-5
+        )
         loss_fn = nn.HuberLoss(delta=1.0)
 
-        self.network_.train()
         n_samples = X_train.size(0)
+        has_val = X_val is not None and mask_val is not None and y_val is not None
+
+        if has_val:
+            y_val_tensor = torch.tensor(y_val, dtype=torch.float32).view(-1, 1)
+
+        best_val_loss = float("inf")
+        best_epoch = 0
+        best_state_dict = copy.deepcopy(self.network_.state_dict())
+        epochs_no_improve = 0
+
+        train_loss_history: List[float] = []
+        val_loss_history: List[float] = []
 
         for epoch in range(epochs):
+            self.network_.train()
             permutation = torch.randperm(n_samples)
+            epoch_train_loss = 0.0
+            num_batches = 0
+
             for i in range(0, n_samples, self.batch_size):
                 indices = permutation[i : i + self.batch_size]
-                batch_x = X_train[indices]
-                batch_m = mask_train[indices]
-                batch_y = y_tensor[indices]
+                batch_x = X_train[indices].to(self.device_)
+                batch_m = mask_train[indices].to(self.device_)
+                batch_y = y_train_tensor[indices].to(self.device_)
 
                 optimizer.zero_grad()
                 preds = self.network_(batch_x, batch_m)
@@ -377,7 +410,69 @@ class TCNRiskModel:
                 loss.backward()
                 optimizer.step()
 
+                epoch_train_loss += loss.item() * len(indices)
+                num_batches += 1
+
+            avg_train_loss = epoch_train_loss / n_samples
+            train_loss_history.append(avg_train_loss)
+
+            # Validation evaluation
+            if has_val:
+                self.network_.eval()
+                val_n = X_val.size(0)
+                val_loss_sum = 0.0
+
+                with torch.no_grad():
+                    for j in range(0, val_n, self.batch_size * 2):
+                        v_end = min(j + self.batch_size * 2, val_n)
+                        v_x = X_val[j:v_end].to(self.device_)
+                        v_m = mask_val[j:v_end].to(self.device_)
+                        v_y = y_val_tensor[j:v_end].to(self.device_)
+                        v_preds = self.network_(v_x, v_m)
+                        v_loss = loss_fn(v_preds, v_y)
+                        val_loss_sum += v_loss.item() * (v_end - j)
+
+                avg_val_loss = val_loss_sum / val_n
+                val_loss_history.append(avg_val_loss)
+                scheduler.step(avg_val_loss)
+
+                if avg_val_loss < best_val_loss:
+                    best_val_loss = avg_val_loss
+                    best_epoch = epoch + 1
+                    best_state_dict = copy.deepcopy(self.network_.state_dict())
+                    epochs_no_improve = 0
+                else:
+                    epochs_no_improve += 1
+
+                if verbose and ((epoch + 1) % 5 == 0 or epoch == 0 or epoch == epochs - 1):
+                    print(
+                        f"    Epoch {epoch+1:02d}/{epochs:02d} - Train Huber: {avg_train_loss:.5f} | Val Huber: {avg_val_loss:.5f} (Best: {best_val_loss:.5f} @ Epoch {best_epoch})"
+                    )
+
+                if epochs_no_improve >= patience:
+                    if verbose:
+                        print(f"    Early stopping triggered at Epoch {epoch+1} (No improvement for {patience} epochs).")
+                    break
+            else:
+                if verbose and ((epoch + 1) % 5 == 0 or epoch == 0):
+                    print(f"    Epoch {epoch+1:02d}/{epochs:02d} - Train Huber: {avg_train_loss:.5f}")
+
+        # Restore best checkpoint
+        if has_val and best_state_dict is not None:
+            self.network_.load_state_dict(best_state_dict)
+            if verbose:
+                print(f"    Restored best model weights from Epoch {best_epoch} (Val Huber: {best_val_loss:.5f}).")
+
         self.is_fitted_ = True
+        self.training_stats_ = {
+            "device": str(self.device_),
+            "total_epochs_run": epoch + 1,
+            "best_epoch": best_epoch if has_val else epoch + 1,
+            "best_val_loss": best_val_loss if has_val else None,
+            "final_train_loss": train_loss_history[-1] if train_loss_history else None,
+            "train_loss_history": train_loss_history,
+            "val_loss_history": val_loss_history,
+        }
         return self
 
     def predict_risk(self, X: Any, mask: Any) -> List[float]:
@@ -386,10 +481,19 @@ class TCNRiskModel:
             raise RuntimeError("Model must be fitted before making predictions.")
 
         if TORCH_AVAILABLE and isinstance(X, torch.Tensor):
+            self.network_.to(self.device_)
             self.network_.eval()
+            n_samples = X.size(0)
+            batch_size = 256
+            all_preds: List[float] = []
+
             with torch.no_grad():
-                preds = self.network_(X, mask).view(-1).tolist()
-            return [float(p) for p in preds]
+                for i in range(0, n_samples, batch_size):
+                    batch_x = X[i : i + batch_size].to(self.device_)
+                    batch_m = mask[i : i + batch_size].to(self.device_)
+                    preds = self.network_(batch_x, batch_m).view(-1).cpu().tolist()
+                    all_preds.extend([float(p) for p in preds])
+            return all_preds
 
         # Pure python fallback prediction (e.g. median default)
         batch_size = len(X) if isinstance(X, list) else X.size(0)
@@ -410,8 +514,17 @@ class TCNRiskModel:
 
     def save(self, path: Union[Path, str]) -> None:
         """Serialize TCN model metadata and weights."""
-        p = Path(path)
-        p.parent.mkdir(parents=True, exist_ok=True)
+        p_str = str(path)
+        if p_str.endswith(".json") or p_str.endswith(".pt"):
+            base_str = os.path.splitext(p_str)[0]
+        else:
+            base_str = p_str
+
+        p_base = Path(base_str)
+        p_base.parent.mkdir(parents=True, exist_ok=True)
+        json_path = Path(f"{base_str}.json")
+        pt_path = Path(f"{base_str}.pt")
+
         meta = {
             "model_name": self.model_name,
             "in_features": self.in_features,
@@ -423,18 +536,27 @@ class TCNRiskModel:
             "seed": self.seed,
             "is_fitted": self.is_fitted_,
             "config": self.config,
+            "training_stats": self.training_stats_,
         }
-        with open(p.with_suffix(".json"), "w", encoding="utf-8") as f:
+        with open(json_path, "w", encoding="utf-8") as f:
             json.dump(meta, f, indent=2)
 
         if TORCH_AVAILABLE and self.network_ is not None:
-            torch.save(self.network_.state_dict(), p.with_suffix(".pt"))
+            torch.save(self.network_.state_dict(), pt_path)
 
     @classmethod
-    def load(cls, path: Union[Path, str]) -> "TCNRiskModel":
+    def load(cls, path: Union[Path, str], device: Optional[str] = None) -> "TCNRiskModel":
         """Load TCN model from disk."""
-        p = Path(path)
-        with open(p.with_suffix(".json"), "r", encoding="utf-8") as f:
+        p_str = str(path)
+        if p_str.endswith(".json") or p_str.endswith(".pt"):
+            base_str = os.path.splitext(p_str)[0]
+        else:
+            base_str = p_str
+
+        json_path = Path(f"{base_str}.json")
+        pt_path = Path(f"{base_str}.pt")
+
+        with open(json_path, "r", encoding="utf-8") as f:
             meta = json.load(f)
 
         instance = cls(
@@ -445,12 +567,15 @@ class TCNRiskModel:
             dropout=meta.get("dropout", 0.15),
             max_seq_len=meta.get("max_seq_len", 23),
             seed=meta.get("seed", 42),
+            device=device,
             config=meta.get("config", {}),
         )
         instance.is_fitted_ = meta.get("is_fitted", True)
+        instance.training_stats_ = meta.get("training_stats", {})
 
-        pt_file = p.with_suffix(".pt")
-        if TORCH_AVAILABLE and pt_file.exists() and instance.network_ is not None:
-            instance.network_.load_state_dict(torch.load(pt_file, map_location="cpu"))
+        if TORCH_AVAILABLE and pt_path.exists() and instance.network_ is not None:
+            instance.network_.load_state_dict(
+                torch.load(pt_path, map_location=instance.device_)
+            )
 
         return instance

@@ -270,3 +270,118 @@ class TrainFittedPreprocessor:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
         return cls.from_dict(data)
+
+
+class TrainFittedSequencePreprocessor:
+    """Channel-wise normalizer for 3D sequence tensors fitted strictly on training observations."""
+
+    def __init__(self, feature_names: List[str]) -> None:
+        self.feature_names = list(feature_names)
+        self.channel_stats_: Dict[str, Dict[str, float]] = {}
+        self.is_fitted_: bool = False
+
+    def fit(self, X_train: Any, mask_train: Any) -> "TrainFittedSequencePreprocessor":
+        """Compute channel-wise mean and std on valid observation timesteps of training split."""
+        import numpy as np
+
+        if hasattr(X_train, "cpu"):
+            X_np = X_train.cpu().numpy()
+            mask_np = mask_train.cpu().numpy()
+        else:
+            X_np = np.asarray(X_train, dtype=np.float64)
+            mask_np = np.asarray(mask_train, dtype=np.float64)
+
+        n_samples, n_channels, time_steps = X_np.shape
+        valid_mask = mask_np > 0.5  # [N, T]
+
+        self.channel_stats_ = {}
+        for c in range(n_channels):
+            feat_name = self.feature_names[c] if c < len(self.feature_names) else f"feat_{c}"
+            channel_vals = X_np[:, c, :][valid_mask]
+            # Remove NaNs if any
+            finite_vals = channel_vals[np.isfinite(channel_vals)]
+            if len(finite_vals) > 0:
+                mean_val = float(np.mean(finite_vals))
+                std_val = float(np.std(finite_vals))
+                std_val = max(std_val, 1e-4)
+            else:
+                mean_val = 0.0
+                std_val = 1.0
+
+            self.channel_stats_[feat_name] = {
+                "channel_idx": c,
+                "mean": mean_val,
+                "std": std_val,
+            }
+
+        self.is_fitted_ = True
+        return self
+
+    def transform(self, X: Any, mask: Any) -> Any:
+        """Apply train-fitted mean/std normalization and zero out padding timesteps."""
+        if not self.is_fitted_:
+            raise RuntimeError("TrainFittedSequencePreprocessor must be fitted before transforming.")
+
+        try:
+            import torch
+
+            if isinstance(X, torch.Tensor):
+                X_norm = X.clone()
+                n_channels = X.size(1)
+                for c in range(n_channels):
+                    feat_name = self.feature_names[c] if c < len(self.feature_names) else f"feat_{c}"
+                    stat = self.channel_stats_.get(feat_name, {"mean": 0.0, "std": 1.0})
+                    m = stat["mean"]
+                    s = stat["std"]
+                    X_norm[:, c, :] = (X_norm[:, c, :] - m) / s
+
+                # Zero out padding positions (where mask == 0.0)
+                mask_expanded = mask.unsqueeze(1).expand_as(X_norm)
+                X_norm = X_norm * mask_expanded
+                return X_norm
+        except ImportError:
+            pass
+
+        import numpy as np
+
+        X_np = np.array(X, copy=True, dtype=np.float64)
+        mask_np = np.asarray(mask, dtype=np.float64)
+        n_channels = X_np.shape[1]
+
+        for c in range(n_channels):
+            feat_name = self.feature_names[c] if c < len(self.feature_names) else f"feat_{c}"
+            stat = self.channel_stats_.get(feat_name, {"mean": 0.0, "std": 1.0})
+            m = stat["mean"]
+            s = stat["std"]
+            X_np[:, c, :] = (X_np[:, c, :] - m) / s
+
+        mask_expanded = np.expand_dims(mask_np, axis=1)
+        X_np = X_np * mask_expanded
+        return X_np
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "feature_names": self.feature_names,
+            "channel_stats": self.channel_stats_,
+            "is_fitted": self.is_fitted_,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "TrainFittedSequencePreprocessor":
+        instance = cls(feature_names=data["feature_names"])
+        instance.channel_stats_ = data["channel_stats"]
+        instance.is_fitted_ = data["is_fitted"]
+        return instance
+
+    def save(self, path: Union[Path, str]) -> None:
+        p = Path(path)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        with open(p, "w", encoding="utf-8") as f:
+            json.dump(self.to_dict(), f, indent=2)
+
+    @classmethod
+    def load(cls, path: Union[Path, str]) -> "TrainFittedSequencePreprocessor":
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return cls.from_dict(data)
+
