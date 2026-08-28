@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-space-950 text-slate-100 antialiased font-sans;
+    background-image: 
+      radial-gradient(ellipse at 50% 0%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(59, 130, 246, 0.04) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+/* Aerospace Card and Panel Styling */
+.panel-card {
+  @apply bg-space-900/90 border border-slate-800/80 rounded-xl shadow-xl backdrop-blur-md transition-all duration-200;
+}
+
+.panel-card:hover {
+  @apply border-slate-700/80 shadow-2xl;
+}
+
+.panel-card-glow {
+  @apply bg-space-900/90 border border-cyan-500/30 rounded-xl shadow-lg shadow-cyan-500/5 backdrop-blur-md;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0F19;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1E293B;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Monospace Numbers */
+.num-mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Glow Badge */
+.badge-critical {
+  @apply bg-rose-500/10 text-rose-400 border border-rose-500/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+}
+
+.badge-moderate {
+  @apply bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+}
+
+.badge-low {
+  @apply bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+}
+
+.badge-safe {
+  @apply bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+}
