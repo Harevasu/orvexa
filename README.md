@@ -3,9 +3,13 @@
 > **An Explainable and Calibrated Temporal AI Framework for Multi-Horizon Spacecraft Conjunction-Risk Prioritization**
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-3776AB.svg?logo=python&logoColor=white)](https://www.python.org/downloads/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.141+-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![React 18](https://img.shields.io/badge/React-18.3+-61DAFB.svg?logo=react&logoColor=black)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-6.2+-646CFF.svg?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-3178C6.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![PyTorch 2.1+](https://img.shields.io/badge/PyTorch-2.1+-EE4C2C.svg?logo=pytorch&logoColor=white)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests: 148 Passed](https://img.shields.io/badge/Tests-148%20Passed%20(100%25)-brightgreen.svg)](tests/)
+[![Tests: 158 Passed](https://img.shields.io/badge/Tests-158%20Passed%20(100%25)-brightgreen.svg)](tests/)
 [![Data: ESA Challenge](https://img.shields.io/badge/Dataset-ESA%20Kelvins%20CDMs-blue.svg)](https://kelvins.esa.int/collision-avoidance-challenge/)
 
 ---
@@ -25,11 +29,11 @@ Spacecraft conjunction assessment is intrinsically sequential: as the Time of Cl
  └─────────────────┘      └─────────────────────────┘      └───────────────────────────┘      └─────────────────────────┘
                                                                                                            │
                                                                                                            ▼
-                                                                                              ┌─────────────────────────┐
-                                                                                              │ Calibrated Triage Alert │
-                                                                                              │  - Point Estimate       │
-                                                                                              │  - Adaptive [q05, q95]  │
-                                                                                              │  - Ranked Alert Queue   │
+ ┌────────────────────────────────────────────────────────────────────────────────────────┐   ┌─────────────────────────┐
+ │                       ORVEXA Demonstration Web Platform                                │   │ Calibrated Triage Alert │
+ │  - React + TypeScript + Vite Space Situational Awareness (SSA) Control Dashboard       │◄──│  - Point Estimate (q50) │
+ │  - FastAPI Read-Only Inference Engine Backed by Frozen Candidate C Artifacts           │   │  - Adaptive [q05, q95]  │
+ └────────────────────────────────────────────────────────────────────────────────────────┘   │  - Ranked Alert Queue   │
                                                                                               └─────────────────────────┘
 ```
 
@@ -82,7 +86,7 @@ Evaluated on the independent **Phase 5 Internal Test Partition** ($N = 1,677$ ev
 | **$H6$** | 144.0h (6.0d) | 1,071 | **5.9731** | **-0.1665** [-0.245, -0.087] | **0.3785** | 1.5580 | **90.20%** | **18.03** | **100.0%** (3/3) |
 
 > [!NOTE]
-> - **Zero Crossing Violations:** Quantile heads guarantee strict monotonicity ($\hat{q}_{0.05} < \hat{q}_{0.50} < \hat{q}_{0.95}$) via non-negative softplus increments ($0.000000$ crossing rate across 5,205 validation sequences).
+> - **Zero Crossing Violations:** Quantile heads guarantee strict monotonicity ($\hat{q}_{0.05} < \hat{q}_{0.50} < \hat{q}_{0.95}$) via non-negative softplus increments ($0.000000$ crossing rate across all validation sequences).
 > - **Adaptive Sharpness:** Conformalized Quantile Regression (CQR) reduces uncertainty interval widths by **47.1% to 52.5%** relative to standard constant-width residual conformal prediction.
 
 ---
@@ -113,7 +117,7 @@ Total Conjunction Event Pool (13,154 Unique Events)
 1. **Physics Baselines:** `max_risk_estimate` (ESA CDMs maximum operational risk proxy) and `max_risk_scaling`.
 2. **Tabular Baselines:** Ridge Regression, Snapshot XGBoost (most recent permissible CDM), and Temporal-Summary XGBoost (mean, std, min, max, delta over the CDM sequence).
 3. **Deterministic Causal TCN ($M_0 \to M_5$):** Multi-layer causal 1D dilated convolutions with receptive field covering full CDM histories, Huber loss ($\delta=1.0$), AdamW optimizer, and Cosine Annealing.
-4. **Quantile Causal TCN + CQR:** Multi-quantile pinball loss for $q \in \{0.05, 0.50, 0.95\}$ with non-crossing parameterization:
+4. **Quantile Causal TCN + CQR:** Multi-quantile pinball loss for $q \in \{0.05, 0.10, 0.25, 0.50, 0.75, 0.90, 0.95\}$ with non-crossing parameterization:
    $$\hat{q}_{0.05}(x) = f_{0.05}(x)$$
    $$\hat{q}_{0.50}(x) = \hat{q}_{0.05}(x) + \text{softplus}(f_{\Delta 1}(x)) + \epsilon$$
    $$\hat{q}_{0.95}(x) = \hat{q}_{0.50}(x) + \text{softplus}(f_{\Delta 2}(x)) + \epsilon$$
@@ -131,6 +135,25 @@ orvexa/
 ├── rules.md                           # Context and engineering invariants
 ├── ORVEXA_TESTING.md                  # Verification suite protocol
 │
+├── backend/                           # FastAPI read-only inference backend
+│   ├── main.py                        # API routes, CORS middleware, startup audit
+│   ├── schemas.py                     # Pydantic data schemas
+│   ├── inference.py                   # Read-only Candidate C inference dispatcher
+│   ├── data_service.py                # Safe non-sealed demo event loader & catalog
+│   ├── benchmarks_service.py          # Scientific benchmark data service
+│   └── orbital_service.py             # Auxiliary SGP4 orbit ephemeris engine
+│
+├── frontend/                          # Space Situational Awareness React frontend
+│   ├── package.json                   # NPM configuration & dependencies
+│   ├── vite.config.ts                 # Vite bundler configuration & backend proxy
+│   ├── tailwind.config.js             # Aerospace dark theme styling
+│   └── src/
+│       ├── App.tsx                    # Main layout and tab state manager
+│       ├── components/                # Header, Sidebar, MetricCard, QuantileChart
+│       ├── pages/                     # 8 dedicated demonstration views
+│       ├── services/api.ts            # Typed HTTP API client
+│       └── types/api.ts               # TypeScript data interfaces
+│
 ├── configs/                           # Experiment and pipeline configurations
 │   ├── base.yaml                      # Global configuration
 │   ├── features.yaml                  # Feature registry and group whitelists
@@ -145,94 +168,123 @@ orvexa/
 │   └── manifests/                     # Checksum manifests and schema reports
 │
 ├── src/orvexa/                        # Core Python package
-│   ├── cli.py                         # Command-line interface
-│   ├── config.py                      # YAML configuration loader and validator
-│   ├── data_io.py                     # Data loaders and manifest utilities
-│   ├── schema.py                      # Schema verification and feature whitelists
-│   ├── quality.py                     # Missingness auditing and data quality checks
-│   ├── event_builder.py               # Prefix filtering and sequence builder
-│   ├── horizons.py                    # Horizon cutoff definitions
-│   ├── splitting.py                   # Event-aware chronological splitting
-│   ├── preprocessing.py               # Train-only imputation and encoding (Phase 1/2)
-│   ├── preprocessing_phase3b.py       # Advanced M4 transform preprocessor (Phase 3B/4/5)
-│   ├── features_snapshot.py           # Snapshot feature extractor
-│   ├── features_temporal.py           # Temporal summary extractor
-│   ├── datasets.py                    # PyTorch Sequence dataset and DataLoaders
-│   ├── models_base.py                 # Abstract base model protocols
-│   ├── models_physics.py              # Physics-derived max risk baselines
-│   ├── models_linear.py               # Ridge and linear baselines
-│   ├── models_xgb.py                  # Snapshot and temporal XGBoost models
 │   ├── models_tcn.py                  # Masked causal TCN architecture
 │   ├── models_probabilistic.py        # Non-crossing Quantile TCN architecture
-│   ├── losses_quantile.py             # Multi-quantile pinball loss functions
 │   ├── conformal.py                   # Split conformal & CQR calibrators
-│   ├── calibration.py                 # Platt and isotonic probability calibrators
-│   ├── ranking_metrics.py             # Recall@K, Precision@K, NDCG@K
-│   ├── classification_metrics.py      # PR-AUC, Brier, ECE
+│   ├── losses_quantile.py             # Multi-quantile pinball loss functions
+│   ├── preprocessing_phase3b.py       # Advanced M4 transform preprocessor
 │   ├── regression_metrics.py          # MAE, RMSE, Pearson r, Spearman rho, R²
+│   ├── ranking_metrics.py             # Recall@K, Precision@K, NDCG@K
 │   ├── bootstrap.py                   # Event-level bootstrap confidence intervals
-│   ├── robustness.py                  # Data perturbation & stress testing
-│   ├── explainability.py              # Tree SHAP and TCN temporal occlusion
-│   ├── reporting.py                   # Report generators and metric tables
-│   ├── artifact_store.py              # Model artifact and metadata store
 │   └── orbit/                         # Auxiliary SGP4 TLE/OMM propagation module
 │
 ├── scripts/                           # Reproducible pipeline execution scripts
-│   ├── audit_data.py                  # Step 1: Raw data validation and schema audit
-│   ├── build_event_dataset.py         # Step 2: Build H2/H3/H5 event datasets
-│   ├── build_h6_dataset.py            # Step 2b: Build H6 event dataset
-│   ├── run_phase1_baselines.py        # Step 3: Train & evaluate tabular baselines
-│   ├── run_phase2b_temporal.py        # Step 4: Train & evaluate deterministic TCN
-│   ├── run_phase3b_combined_experiments.py # Step 5: Run M0-M5 feature intervention
-│   ├── run_phase4a_step2_training.py  # Step 6: Train H6 M4 TCN
-│   ├── run_phase5_step3_probabilistic_training.py # Step 7: Train Quantile M4 TCNs
-│   ├── run_phase5_step4_audit.py      # Step 8: Calibrate CQR & audit validation
-│   ├── run_phase5_step5_blind_internal_test.py # Step 9: Evaluate Internal Test set
-│   └── run_phase5_step6_final_scientific_audit.py # Step 10: Cross-phase reconciliation
-│
-├── tests/                             # Comprehensive test suite (148 tests)
-├── artifacts/                         # Generated models, calibrators, predictions
+├── tests/                             # Comprehensive test suite (158 passed tests)
+├── artifacts/                         # Frozen candidate models, calibrators, preprocessors
 ├── reports/                           # Formal scientific audits and benchmark reports
 ├── docs/                              # Architecture, PRD, and technical specifications
-└── app/                               # Streamlit interactive research dashboard
+└── app/                               # Auxiliary Streamlit research dashboard
 ```
 
 ---
 
-## 5. Quickstart Guide
+## 5. Quickstart & Demonstration Guide
 
 ### 5.1 Environment Setup
 
-ORVEXA requires **Python 3.11+**.
+ORVEXA requires **Python 3.11+** and **Node.js 18+**.
 
 ```bash
 # 1. Clone the repository
 git clone https://github.com/orvexa/orvexa.git
 cd orvexa
 
-# 2. Create and activate a virtual environment
+# 2. Create and activate a Python virtual environment
 python -m venv .venv-orvexa
 source .venv-orvexa/bin/activate       # On Linux / macOS
 # .venv-orvexa\Scripts\activate        # On Windows (PowerShell / CMD)
 
-# 3. Install package with development dependencies
+# 3. Install Python package and dependencies
 pip install -e ".[dev]"
+pip install fastapi httpx
 ```
-
-### 5.2 Running the Test Suite
-
-Verify complete repository integrity and scientific contracts:
-
-```bash
-pytest
-```
-*Expected: 148 passed tests spanning data schemas, sequence shapes, causal dilation, non-crossing quantiles, CQR calibration, and split disjointness.*
 
 ---
 
-### 5.3 End-to-End Pipeline Execution
+### 5.2 Running the Web Demonstration Platform
 
-To reproduce the full multi-phase experimental benchmarks from scratch:
+The primary ORVEXA demonstration platform consists of a **FastAPI backend** (running real-time inference on frozen Candidate C weights) paired with a modern **React + Vite + TypeScript frontend**:
+
+#### Terminal 1: Launch FastAPI Backend
+```powershell
+.venv-orvexa\Scripts\python.exe -m uvicorn backend.main:app --host 127.0.0.1 --port 8000 --reload
+```
+
+#### Terminal 2: Launch React Frontend
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+Open your browser at: **`http://localhost:5173`**
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                        ORVEXA Web Demonstration Modules                │
+├────────────────────────────┬───────────────────────────────────────────┤
+│ 1. Conjunction Risk        │ Interactive workbench: select event &     │
+│    Analysis (Main)         │ horizon, click "Analyze Conjunction",     │
+│                            │ view median q50 & 90% CQR uncertainty.   │
+├────────────────────────────┼───────────────────────────────────────────┤
+│ 2. Event Detail & CDMs     │ Chronological CDM approach sequence,      │
+│                            │ miss distance & Mahalanobis evolution.    │
+├────────────────────────────┼───────────────────────────────────────────┤
+│ 3. Horizon Comparison      │ Side-by-side sweep across H2, H3, H5, H6  │
+│                            │ with point R² vs CQR coverage trade-off.  │
+├────────────────────────────┼───────────────────────────────────────────┤
+│ 4. Ranked Alerts Queue     │ Prioritized triage queue sorted by risk   │
+│                            │ with one-click workbench loading.         │
+├────────────────────────────┼───────────────────────────────────────────┤
+│ 5. Reliability Audit       │ Empirical coverage verification on 1,677  │
+│                            │ test events (90.20% - 92.96% coverage).   │
+├────────────────────────────┼───────────────────────────────────────────┤
+│ 6. Robustness & Limits     │ Unmasked H6 negative R² (-0.16651) and    │
+│                            │ scientific explanation of uncertainty.   │
+├────────────────────────────┼───────────────────────────────────────────┤
+│ 7. Scientific Glossary     │ Technical guide to CDMs, TCA, log10(Pc),  │
+│                            │ Causal TCNs, Pinball loss, and CQR.       │
+├────────────────────────────┼───────────────────────────────────────────┤
+│ 8. Auxiliary Ephemeris     │ SGP4 orbit propagation visualizer         │
+│                            │ decoupled from ML risk scoring.           │
+└────────────────────────────┴───────────────────────────────────────────┘
+```
+
+---
+
+### 5.3 Running the Test Suite
+
+Verify complete repository integrity, backend API endpoints, and scientific contracts:
+
+```bash
+# Run full test suite (158 tests)
+pytest -v
+
+# Run backend API integration tests only
+pytest tests/test_backend_api.py -v
+
+# Run frontend production build & TypeScript typecheck
+cd frontend
+npm run build
+```
+
+*Expected: 158 passed Python tests (100%) and clean TypeScript bundle compilation.*
+
+---
+
+### 5.4 End-to-End Pipeline Reproduction
+
+To reproduce the multi-phase experimental benchmarks from scratch:
 
 ```bash
 # 1. Audit raw ESA dataset and generate schema report
@@ -266,24 +318,6 @@ python scripts/run_phase5_step5_blind_internal_test.py
 # 10. Execute final scientific audit and cross-phase reconciliation
 python scripts/run_phase5_step6_final_scientific_audit.py
 ```
-
----
-
-### 5.4 Launching the Streamlit Research Dashboard
-
-ORVEXA includes a multi-page interactive dashboard for inspecting conjunction alerts, model comparisons, explainability attributions, and orbital propagation:
-
-```bash
-streamlit run app/streamlit_app.py
-```
-
-Dashboard modules include:
-- **Overview & Risk Horizon Tracker:** High-level summary of model performance and operational warning limits.
-- **Ranked Alerts Queue:** Operational triage queue sorted by predicted risk with adaptive CQR uncertainty bounds.
-- **Event Time-Series Detail:** Interactive CDM sequence inspector showing covariance evolution and miss distance over time.
-- **Model Explainability:** SHAP feature attributions and TCN temporal occlusion maps.
-- **Reliability & Calibration:** Conformal coverage diagnostics, ECE, and reliability diagrams.
-- **Orbital Demonstration:** SGP4 ephemeris propagation and 3D encounter geometry visualization.
 
 ---
 
@@ -322,7 +356,7 @@ If you use ORVEXA in your academic research or space situational awareness bench
 ### Acknowledgments & Data Sources
 - **European Space Agency (ESA):** Space Debris Office and the Kelvins Collision Avoidance Challenge dataset.
 - **Space-Track & CelesTrak:** Auxiliary orbital mechanics and TLE reference ephemerides.
-- **PyTorch-TCN & scikit-learn:** Core sequence modeling and machine learning frameworks.
+- **PyTorch-TCN, FastAPI, React & scikit-learn:** Core sequence modeling, API, and frontend presentation frameworks.
 
 ---
 
